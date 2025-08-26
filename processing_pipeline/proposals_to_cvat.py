@@ -2,219 +2,196 @@ import os
 import pickle
 import argparse
 import zipfile
-import cv2  # Make sure to have opencv-python installed: pip install opencv-python
+import cv2
 from tqdm import tqdm
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 def get_image_dimensions(frame_path):
-    """Reads an image file and returns its width and height."""
     try:
         img = cv2.imread(frame_path)
         if img is not None:
             height, width, _ = img.shape
             return width, height
-    except Exception as e:
-        print(f"⚠️ Warning: Could not read image {frame_path}. Error: {e}")
-    return None, None
+    except Exception:
+        return None, None
 
 
 def prettify_xml(elem):
-    """Return a pretty-printed XML string for the Element."""
     rough_string = ET.tostring(elem, 'utf-8')
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="  ")
 
 
 def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, clip_id):
-    """
-    Generates the content for a CVAT XML 1.1 format file with tracks.
-    """
-    # Root element
     annotations = ET.Element('annotations')
     ET.SubElement(annotations, 'version').text = '1.1'
 
-    # Meta information
     meta = ET.SubElement(annotations, 'meta')
     task = ET.SubElement(meta, 'task')
-    ET.SubElement(task, 'id').text = '0'  # Placeholder
+    ET.SubElement(task, 'id').text = '0'
     ET.SubElement(task, 'name').text = clip_id
     ET.SubElement(task, 'size').text = str(len(frames_data))
     ET.SubElement(task, 'mode').text = 'interpolation'
     ET.SubElement(task, 'overlap').text = '0'
     ET.SubElement(task, 'bugtracker')
-    ET.SubElement(task, 'created').text = '2025-08-23 13:30:35.000000+05:30'  # Placeholder
-    ET.SubElement(task, 'updated').text = '2025-08-23 13:30:35.000000+05:30'  # Placeholder
-    subset = ET.SubElement(task, 'subset')
-    subset.text = 'default'
+    ET.SubElement(task, 'created').text = '2025-08-25 12:07:00.000000+05:30'
+    ET.SubElement(task, 'updated').text = '2025-08-25 12:07:00.000000+05:30'
+    ET.SubElement(task, 'subset').text = 'default'
 
-    # Add image information to meta
-    # Sort frames to ensure consistent ordering
-    sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
-    for i, frame_name in enumerate(sorted_frame_names):
-        frame_meta = ET.SubElement(task, 'frame')
-        ET.SubElement(frame_meta, 'id').text = str(i)
-        ET.SubElement(frame_meta, 'name').text = frame_name
-        ET.SubElement(frame_meta, 'width').text = str(image_width)
-        ET.SubElement(frame_meta, 'height').text = str(image_height)
+    original_size = ET.SubElement(task, 'original_size')
+    ET.SubElement(original_size, 'width').text = str(image_width)
+    ET.SubElement(original_size, 'height').text = str(image_height)
 
-    source = ET.SubElement(meta, 'source')
-    source.text = 'frames'
-
-    # Labels and Attributes
     labels = ET.SubElement(task, 'labels')
     person_label = ET.SubElement(labels, 'label')
     ET.SubElement(person_label, 'name').text = 'person'
     ET.SubElement(person_label, 'color').text = '#ff0000'
-
     attributes_xml = ET.SubElement(person_label, 'attributes')
-    for attr in attributes_dict.values():
+
+    for attr_data in attributes_dict.values():
         attribute = ET.SubElement(attributes_xml, 'attribute')
-        ET.SubElement(attribute, 'name').text = attr['aname']
+        ET.SubElement(attribute, 'name').text = attr_data['aname']
         ET.SubElement(attribute, 'mutable').text = 'true'
         ET.SubElement(attribute, 'input_type').text = 'select'
-        ET.SubElement(attribute, 'default_value').text = list(attr['options'].values())[
-            0]  # Use first option as default
-        ET.SubElement(attribute, 'values').text = '\n'.join(attr['options'].values())
+        default_value = list(attr_data['options'].values())[0]
+        ET.SubElement(attribute, 'default_value').text = default_value
+        ET.SubElement(attribute, 'values').text = '\n'.join(attr_data['options'].values())
 
-    # Group detections by track_id
-    tracks = defaultdict(list)
+    tracks_data = defaultdict(dict)
     for frame_name, detections in frames_data.items():
         try:
-            # Extract frame number from filename like '..._0001.jpg'
             frame_num_match = re.search(r'_(\d+)\.jpg$', frame_name)
-            if not frame_num_match:
-                print(f"⚠️ Warning: Could not parse frame number from '{frame_name}', skipping.")
-                continue
+            if not frame_num_match: continue
             frame_num = int(frame_num_match.group(1))
-
             for det in detections:
-                track_id = det[5]
-                bbox = det[0:4]  # Bbox: [x1, y1, x2, y2]
-                tracks[track_id].append({'frame': frame_num, 'bbox': bbox})
+                track_id, bbox = det[5], det[0:4]
+                tracks_data[track_id][frame_num] = bbox
         except (AttributeError, IndexError, TypeError):
-            print(f"⚠️ Warning: Could not parse detection for {frame_name}")
             continue
 
-    # Create <track> elements
-    for track_id, detections in tracks.items():
-        track_xml = ET.SubElement(annotations, 'track', {
-            'id': str(track_id),
-            'label': 'person',
-        })
+    for track_id, detections_by_frame in tracks_data.items():
+        track_xml = ET.SubElement(annotations, 'track', {'id': str(track_id), 'label': 'person'})
 
-        # Sort detections by frame number to ensure correct order
-        sorted_detections = sorted(detections, key=lambda d: d['frame'])
+        if not detections_by_frame:
+            continue
 
-        for det in sorted_detections:
-            x1, y1, x2, y2 = det['bbox']
+        min_frame = min(detections_by_frame.keys())
+        max_frame = max(detections_by_frame.keys())
+        last_known_bbox = None
+
+        for frame_num in range(min_frame, max_frame + 1):
+            bbox = detections_by_frame.get(frame_num)
+
+            is_outside = "1" if bbox is None else "0"
+            is_keyframe = "1" if bbox is not None else "0"
+
+            if bbox is None:
+                bbox = last_known_bbox if last_known_bbox is not None else [0, 0, 0, 0]
+            else:
+                last_known_bbox = bbox
+
+            x1, y1, x2, y2 = bbox
             box_attributes = {
-                'frame': str(det['frame']),
-                'xtl': str(float(x1)),
-                'ytl': str(float(y1)),
-                'xbr': str(float(x2)),
-                'ybr': str(float(y2)),
-                'outside': '0',
+                'frame': str(frame_num), 'xtl': str(x1), 'ytl': str(y1),
+                'xbr': str(x2), 'ybr': str(y2),
+                'outside': is_outside,
                 'occluded': '0',
-                'keyframe': '1',  # Every detected frame is a keyframe
+                'keyframe': is_keyframe
             }
-            ET.SubElement(track_xml, 'box', box_attributes)
+            box_xml = ET.SubElement(track_xml, 'box', box_attributes)
+
+            for attr_data in attributes_dict.values():
+                default_value = list(attr_data['options'].values())[0]
+                ET.SubElement(box_xml, 'attribute', {'name': attr_data['aname']}).text = default_value
 
     return prettify_xml(annotations)
 
 
 def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
-    """
-    Generates XML and creates a ZIP file for a single video clip.
-    """
     clip_frame_path = os.path.join(frame_dir, video_id)
     if not os.path.isdir(clip_frame_path):
-        print(f"⚠️ Warning: Frame directory not found for clip '{video_id}', skipping.")
-        return
+        return False
 
     sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
     if not sorted_frame_names:
-        print(f"⚠️ Warning: No frames found for clip '{video_id}', skipping.")
-        return
+        return False
 
     width, height = get_image_dimensions(os.path.join(clip_frame_path, sorted_frame_names[0]))
     if not width or not height:
-        print(f"❌ Error: Could not determine image dimensions for clip '{video_id}', skipping.")
-        return
+        return False
 
-    # 1. Generate XML content
     xml_content = generate_cvat_xml(frames_data, width, height, attributes_dict, video_id)
 
-    # 2. Create the ZIP file
     zip_path = os.path.join(output_dir, f"{video_id}.zip")
-    try:
-        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-            zf.writestr('annotations.xml', xml_content)
-
-            for frame_name in sorted_frame_names:
-                frame_file_path = os.path.join(clip_frame_path, frame_name)
-                if os.path.exists(frame_file_path):
-                    zf.write(frame_file_path, arcname=frame_name)
-        return True
-    except Exception as e:
-        print(f"❌ Error creating ZIP file for clip '{video_id}': {e}")
-        return False
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr('annotations.xml', xml_content)
+        for frame_name in sorted_frame_names:
+            frame_file_path = os.path.join(clip_frame_path, frame_name)
+            if os.path.exists(frame_file_path):
+                zf.write(frame_file_path, arcname=frame_name)
+    return True
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Create CVAT-compatible ZIP files with pre-annotations from a dense proposal file."
-    )
+        description="Create CVAT-compatible ZIP files with pre-annotations from a dense proposal file.")
     parser.add_argument('--pickle_path', type=str, required=True,
                         help="Path to the frame-based dense_proposals.pkl file.")
     parser.add_argument('--frame_dir', type=str, required=True,
                         help="Root directory containing frame subdirectories for each clip.")
-    parser.add_argument('--output_dir', type=str, required=True,
-                        help="Directory to save the final ZIP files.")
+    parser.add_argument('--output_dir', type=str, required=True, help="Directory to save the final ZIP files.")
     args = parser.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    try:
-        with open(args.pickle_path, 'rb') as f:
-            proposals_data = pickle.load(f)
-    except FileNotFoundError:
-        print(f"❌ Error: Pickle file not found at {args.pickle_path}")
-        return
+    with open(args.pickle_path, 'rb') as f:
+        proposals_data = pickle.load(f)
 
-    # ✨ COMPLETE action attributes from your VIA script
     attributes_dict = {
-        '1': dict(aname='walking_behavior', type=2,
-                  options={'0': 'normal_walk', '1': 'fast_walk', '2': 'slow_walk', '3': 'standing_still',
-                           '4': 'jogging', '5': 'window_shopping'}),
-        '2': dict(aname='phone_usage', type=2,
-                  options={'0': 'no_phone', '1': 'talking_phone', '2': 'texting', '3': 'taking_photo',
-                           '4': 'listening_music'}),
-        '3': dict(aname='social_interaction', type=2,
-                  options={'0': 'alone', '1': 'talking_companion', '2': 'group_walking', '3': 'greeting_someone',
-                           '4': 'asking_directions', '5': 'avoiding_crowd'}),
-        '4': dict(aname='carrying_items', type=2,
-                  options={'0': 'empty_hands', '1': 'shopping_bags', '2': 'backpack', '3': 'briefcase_bag',
-                           '4': 'umbrella', '5': 'food_drink', '6': 'multiple_items'}),
-        '5': dict(aname='street_behavior', type=2,
-                  options={'0': 'sidewalk_walking', '1': 'crossing_street', '2': 'waiting_signal',
-                           '3': 'looking_around', '4': 'checking_map', '5': 'entering_building',
-                           '6': 'exiting_building'}),
-        '6': dict(aname='posture_gesture', type=2,
-                  options={'0': 'upright_normal', '1': 'looking_down', '2': 'looking_up', '3': 'hands_in_pockets',
-                           '4': 'arms_crossed', '5': 'pointing_gesture', '6': 'bowing_gesture'}),
-        '7': dict(aname='clothing_style', type=2,
-                  options={'0': 'business_attire', '1': 'casual_wear', '2': 'tourist_style', '3': 'school_uniform',
-                           '4': 'sports_wear', '5': 'traditional_wear'}),
-        '8': dict(aname='time_context', type=2,
-                  options={'0': 'rush_hour', '1': 'leisure_time', '2': 'shopping_time', '3': 'tourist_hours',
-                           '4': 'lunch_break', '5': 'evening_stroll'})
+        '1': dict(aname='walking_behavior',
+                  options={'unknown': 'unknown', 'normal_walk': 'normal_walk', 'fast_walk': 'fast_walk',
+                           'slow_walk': 'slow_walk', 'standing_still': 'standing_still', 'jogging': 'jogging',
+                           'window_shopping': 'window_shopping'}),
+        '2': dict(aname='phone_usage',
+                  options={'unknown': 'unknown', 'no_phone': 'no_phone', 'talking_phone': 'talking_phone',
+                           'texting': 'texting', 'taking_photo': 'taking_photo', 'listening_music': 'listening_music'}),
+        '3': dict(aname='social_interaction',
+                  options={'unknown': 'unknown', 'alone': 'alone', 'talking_companion': 'talking_companion',
+                           'group_walking': 'group_walking', 'greeting_someone': 'greeting_someone',
+                           'asking_directions': 'asking_directions', 'avoiding_crowd': 'avoiding_crowd'}),
+        '4': dict(aname='carrying_items',
+                  options={'unknown': 'unknown', 'empty_hands': 'empty_hands', 'shopping_bags': 'shopping_bags',
+                           'backpack': 'backpack', 'briefcase_bag': 'briefcase_bag', 'umbrella': 'umbrella',
+                           'food_drink': 'food_drink', 'multiple_items': 'multiple_items'}),
+        '5': dict(aname='street_behavior', options={'unknown': 'unknown', 'sidewalk_walking': 'sidewalk_walking',
+                                                    'crossing_street': 'crossing_street',
+                                                    'waiting_signal': 'waiting_signal',
+                                                    'looking_around': 'looking_around', 'checking_map': 'checking_map',
+                                                    'entering_building': 'entering_building',
+                                                    'exiting_building': 'exiting_building'}),
+        '6': dict(aname='posture_gesture',
+                  options={'unknown': 'unknown', 'upright_normal': 'upright_normal', 'looking_down': 'looking_down',
+                           'looking_up': 'looking_up', 'hands_in_pockets': 'hands_in_pockets',
+                           'arms_crossed': 'arms_crossed', 'pointing_gesture': 'pointing_gesture',
+                           'bowing_gesture': 'bowing_gesture'}),
+        '7': dict(aname='clothing_style',
+                  options={'unknown': 'unknown', 'business_attire': 'business_attire', 'casual_wear': 'casual_wear',
+                           'tourist_style': 'tourist_style', 'school_uniform': 'school_uniform',
+                           'sports_wear': 'sports_wear', 'traditional_wear': 'traditional_wear'}),
+        '8': dict(aname='time_context',
+                  options={'unknown': 'unknown', 'rush_hour': 'rush_hour', 'leisure_time': 'leisure_time',
+                           'shopping_time': 'shopping_time', 'tourist_hours': 'tourist_hours',
+                           'lunch_break': 'lunch_break', 'evening_stroll': 'evening_stroll'})
     }
 
-    print(f"Found proposals for {len(proposals_data)} unique video clips.")
     success_count = 0
     for video_id, frames_data in tqdm(proposals_data.items(), desc="Processing clips"):
         if process_clip(video_id, frames_data, args.frame_dir, args.output_dir, attributes_dict):
