@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/AVA_dataset_for_Spacio_temporal_action_localization_pipeline" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cvat" vcs="Git" />
   </component>
 </project>

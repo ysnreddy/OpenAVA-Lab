@@ -20,8 +20,9 @@ def get_image_dimensions(frame_path):
         if img is not None:
             height, width, _ = img.shape
             return width, height
-    except Exception:
-        return None, None
+    except Exception as e:
+        logger.warning(f"Could not read image {frame_path}: {e}")
+    return None, None
 
 
 def prettify_xml(elem):
@@ -42,8 +43,8 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
     ET.SubElement(task, 'mode').text = 'interpolation'
     ET.SubElement(task, 'overlap').text = '0'
     ET.SubElement(task, 'bugtracker')
-    ET.SubElement(task, 'created').text = '2025-08-25 12:07:00.000000+05:30'
-    ET.SubElement(task, 'updated').text = '2025-08-25 12:07:00.000000+05:30'
+    ET.SubElement(task, 'created').text = '2025-08-26 12:00:00.000000+02:00'
+    ET.SubElement(task, 'updated').text = '2025-08-26 12:00:00.000000+02:00'
     ET.SubElement(task, 'subset').text = 'default'
 
     original_size = ET.SubElement(task, 'original_size')
@@ -116,23 +117,39 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
 
 
 def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
+    """
+    Generates a ZIP file with only frames and a separate XML file.
+    """
     clip_frame_path = os.path.join(frame_dir, video_id)
     if not os.path.isdir(clip_frame_path):
+        logger.warning(f"Frame directory not found for clip '{video_id}', skipping.")
         return False
 
-    sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
+    try:
+        sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
+    except (AttributeError, ValueError):
+        logger.warning(f"Could not sort frames for clip '{video_id}', skipping.")
+        return False
+
     if not sorted_frame_names:
+        logger.warning(f"No frames found in data for clip '{video_id}', skipping.")
         return False
 
     width, height = get_image_dimensions(os.path.join(clip_frame_path, sorted_frame_names[0]))
     if not width or not height:
+        logger.error(f"Could not determine image dimensions for clip '{video_id}', skipping.")
         return False
 
     xml_content = generate_cvat_xml(frames_data, width, height, attributes_dict, video_id)
 
+    # Save XML to a separate file
+    xml_path = os.path.join(output_dir, f"{video_id}_annotations.xml")
+    with open(xml_path, 'w', encoding='utf-8') as f:
+        f.write(xml_content)
+
+    # Create the ZIP file with only frames
     zip_path = os.path.join(output_dir, f"{video_id}.zip")
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr('annotations.xml', xml_content)
         for frame_name in sorted_frame_names:
             frame_file_path = os.path.join(clip_frame_path, frame_name)
             if os.path.exists(frame_file_path):
@@ -141,19 +158,20 @@ def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Create CVAT-compatible ZIP files with pre-annotations from a dense proposal file.")
-    parser.add_argument('--pickle_path', type=str, required=True,
-                        help="Path to the frame-based dense_proposals.pkl file.")
-    parser.add_argument('--frame_dir', type=str, required=True,
-                        help="Root directory containing frame subdirectories for each clip.")
-    parser.add_argument('--output_dir', type=str, required=True, help="Directory to save the final ZIP files.")
+    parser = argparse.ArgumentParser(description="Create separate ZIP and XML files from a dense proposal file.")
+    parser.add_argument('--pickle_path', type=str, required=True, help="Path to the dense_proposals.pkl file.")
+    parser.add_argument('--frame_dir', type=str, required=True, help="Root directory containing frame subdirectories.")
+    parser.add_argument('--output_dir', type=str, required=True, help="Directory to save the final ZIP and XML files.")
     args = parser.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    with open(args.pickle_path, 'rb') as f:
-        proposals_data = pickle.load(f)
+    try:
+        with open(args.pickle_path, 'rb') as f:
+            proposals_data = pickle.load(f)
+    except FileNotFoundError:
+        logger.error(f"Pickle file not found at {args.pickle_path}")
+        return
 
     attributes_dict = {
         '1': dict(aname='walking_behavior',
@@ -197,7 +215,7 @@ def main():
         if process_clip(video_id, frames_data, args.frame_dir, args.output_dir, attributes_dict):
             success_count += 1
 
-    print(f"\n🎉 Processing complete. Successfully created {success_count} ZIP files in '{args.output_dir}'.")
+    print(f"\n🎉 Processing complete. Successfully created {success_count} ZIP and XML files in '{args.output_dir}'.")
 
 
 if __name__ == "__main__":
