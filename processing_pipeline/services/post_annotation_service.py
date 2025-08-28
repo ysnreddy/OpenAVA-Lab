@@ -1,3 +1,4 @@
+import json
 import os
 import psycopg2
 import logging
@@ -222,15 +223,15 @@ if __name__ == '__main__':
     # --- Example Usage ---
     # 1. Fill in your CVAT and Database credentials
     CVAT_HOST = "http://localhost:8080"
-    CVAT_USERNAME = "your_admin_user"
-    CVAT_PASSWORD = "your_admin_password"
+    CVAT_USERNAME = "mv350"
+    CVAT_PASSWORD = "Amazon123"
 
     DB_PARAMS = {
         "dbname": "cvat_annotations",
         "user": "postgres",
-        "password": "your_db_password",
+        "password": "Amazon123",
         "host": "localhost",
-        "port": "5432"
+        "port": "5433"
     }
 
     # The ID of the project in CVAT you want to monitor
