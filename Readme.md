@@ -22,3 +22,9 @@ Access the CVAT Interface
 Your local CVAT instance is now ready. Open your web browser and go to the following address to access it:
 
 http://localhost:8080
+
+
+## To run this with complete Database setup
+
+
+*docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d*
