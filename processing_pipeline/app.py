@@ -35,17 +35,16 @@ if st.button("Save Uploaded Files"):
     os.makedirs(DATA_PATH, exist_ok=True)
     os.makedirs(XML_PATH, exist_ok=True)
     for uploaded_file in uploaded_files:
-        file_path = DATA_PATH / uploaded_file.name
-        with open(file_path, "wb") as f:
+        with open(DATA_PATH / uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
     for uploaded_xml in uploaded_xmls:
-        xml_path = XML_PATH / uploaded_xml.name
-        with open(xml_path, "wb") as f:
+        with open(XML_PATH / uploaded_xml.name, "wb") as f:
             f.write(uploaded_xml.getbuffer())
     st.success("Successfully saved all files.")
 
 st.header("2. Define Task Parameters")
 
+org_slug = st.text_input("Organization Slug (optional, leave blank for personal workspace)", "")
 project_name = st.text_input("Project Name", f"AVA_Project_{os.urandom(4).hex()}")
 annotator_list = st.text_area("Annotators (one username per line)", "annotator1\nannotator2\nannotator3")
 overlap_percentage = st.slider("Overlap Percentage", min_value=0, max_value=100, value=20, step=5)
@@ -85,17 +84,17 @@ if st.button("Generate & Upload Tasks", key="generate_button"):
 
                 st.info("🚀 Creating project and uploading tasks to CVAT...")
                 labels = get_default_labels()
-                project_id = client.create_project(project_name, labels)
+                project_id = client.create_project(project_name, labels, org_slug=org_slug if org_slug else None)
 
                 if project_id:
                     st.info(f"✅ Project '{project_name}' created with ID: {project_id}")
 
+                    # ✨ FIX: Removed the redundant 'labels' argument from this call
                     results = client.create_tasks_from_assignments(
                         project_id=project_id,
                         assignments=assignments,
                         zip_dir=DATA_PATH,
-                        xml_dir=XML_PATH,  # ✨ FIX: Passing the new XML path here
-                        labels=labels
+                        xml_dir=XML_PATH
                     )
 
                     if results:

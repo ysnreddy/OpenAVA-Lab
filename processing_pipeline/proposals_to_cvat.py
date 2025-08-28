@@ -66,17 +66,18 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
         ET.SubElement(attribute, 'default_value').text = default_value
         ET.SubElement(attribute, 'values').text = '\n'.join(attr_data['options'].values())
 
+    # ✨ FIX: Create a mapping from filename to a zero-based index
+    sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
+    frame_map = {name: i for i, name in enumerate(sorted_frame_names)}
+
     tracks_data = defaultdict(dict)
     for frame_name, detections in frames_data.items():
-        try:
-            frame_num_match = re.search(r'_(\d+)\.jpg$', frame_name)
-            if not frame_num_match: continue
-            frame_num = int(frame_num_match.group(1))
-            for det in detections:
-                track_id, bbox = det[5], det[0:4]
-                tracks_data[track_id][frame_num] = bbox
-        except (AttributeError, IndexError, TypeError):
+        if frame_name not in frame_map:
             continue
+        frame_idx = frame_map[frame_name]
+        for det in detections:
+            track_id, bbox = det[5], det[0:4]
+            tracks_data[track_id][frame_idx] = bbox
 
     for track_id, detections_by_frame in tracks_data.items():
         track_xml = ET.SubElement(annotations, 'track', {'id': str(track_id), 'label': 'person'})
