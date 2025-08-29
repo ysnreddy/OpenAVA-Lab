@@ -32,11 +32,15 @@ def cvat_webhook():
             # This ensures the webhook returns a response quickly
             try:
                 subprocess.Popen(
-                    ["python", "services/post_annotation_service.py", "--project-id", str(project_id)],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
+                                ["python", "services/post_annotation_service.py",
+                                "--project-id", str(project_id),
+                                "--task-id", str(payload["job"]["task_id"]),
+                                "--assignee", payload["job"].get("assignee", {}).get("username", "N/A")],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL,
+                                shell=True  # <-- useful on Windows
+                            )
+
                 return jsonify({"status": "success", "message": "Post-annotation service triggered."}), 200
             except Exception as e:
                 logger.error(f"Failed to trigger post-annotation service: {e}")

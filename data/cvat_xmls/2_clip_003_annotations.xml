@@ -1,0 +1,1909 @@
+<?xml version="1.0" ?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <task>
+      <id>0</id>
+      <name>2_clip_003</name>
+      <size>15</size>
+      <mode>interpolation</mode>
+      <overlap>0</overlap>
+      <bugtracker/>
+      <created>2025-08-26 12:00:00.000000+02:00</created>
+      <updated>2025-08-26 12:00:00.000000+02:00</updated>
+      <subset>default</subset>
+      <original_size>
+        <width>1280</width>
+        <height>720</height>
+      </original_size>
+      <labels>
+        <label>
+          <name>person</name>
+          <color>#ff0000</color>
+          <attributes>
+            <attribute>
+              <name>walking_behavior</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>normal_walk</default_value>
+              <values>normal_walk
+fast_walk
+slow_walk
+standing_still
+jogging
+window_shopping</values>
+            </attribute>
+            <attribute>
+              <name>phone_usage</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>no_phone</default_value>
+              <values>no_phone
+talking_phone
+texting
+taking_photo
+listening_music</values>
+            </attribute>
+            <attribute>
+              <name>social_interaction</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>alone</default_value>
+              <values>alone
+talking_companion
+group_walking
+greeting_someone
+asking_directions
+avoiding_crowd</values>
+            </attribute>
+            <attribute>
+              <name>carrying_items</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>empty_hands</default_value>
+              <values>empty_hands
+shopping_bags
+backpack
+briefcase_bag
+umbrella
+food_drink
+multiple_items</values>
+            </attribute>
+            <attribute>
+              <name>street_behavior</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>sidewalk_walking</default_value>
+              <values>sidewalk_walking
+crossing_street
+waiting_signal
+looking_around
+checking_map
+entering_building
+exiting_building</values>
+            </attribute>
+            <attribute>
+              <name>posture_gesture</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>upright_normal</default_value>
+              <values>upright_normal
+looking_down
+looking_up
+hands_in_pockets
+arms_crossed
+pointing_gesture
+bowing_gesture</values>
+            </attribute>
+            <attribute>
+              <name>clothing_style</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>business_attire</default_value>
+              <values>business_attire
+casual_wear
+tourist_style
+school_uniform
+sports_wear
+traditional_wear</values>
+            </attribute>
+            <attribute>
+              <name>time_context</name>
+              <mutable>true</mutable>
+              <input_type>select</input_type>
+              <default_value>rush_hour</default_value>
+              <values>rush_hour
+leisure_time
+shopping_time
+tourist_hours
+lunch_break
+evening_stroll</values>
+            </attribute>
+          </attributes>
+        </label>
+      </labels>
+    </task>
+  </meta>
+  <track id="4342" label="person">
+    <box frame="0" xtl="-0.24394607543946023" ytl="421.22833251953125" xbr="89.64250183105469" ybr="718.0485229492188" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="-14.027581468005081" ytl="371.1788625165451" xbr="82.04449832626834" ybr="690.5802889737216" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="-19.928873665912064" ytl="325.29283941529394" xbr="74.61772648562389" ybr="643.8528919764349" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="-19.75613659901143" ytl="319.8125043764413" xbr="57.17813406035293" ybr="584.2782887496078" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4343" label="person">
+    <box frame="0" xtl="88.74092864990234" ytl="400.72698974609375" xbr="232.89712524414062" ybr="615.7146606445312" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="62.40180592006831" ytl="358.73488673690923" xbr="206.01559459767125" ybr="574.0700834920584" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="55.88491958887845" ytl="313.4220727436069" xbr="194.0323132158686" ybr="521.0009548460532" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="37.85130783759125" ytl="267.20654622780546" xbr="172.56534629329968" ybr="468.95908151324903" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="32.30700022936791" ytl="226.45149740830976" xbr="143.60921619764363" ybr="393.99031891167226" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="17.640772149863018" ytl="182.0030122819776" xbr="133.7545292716982" ybr="356.21796504460565" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="-8.352169717960379" ytl="145.14777562460978" xbr="119.73254220155192" ybr="340.0586449757917" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="-18.521061321870476" ytl="102.92683569662954" xbr="105.53990567201413" ybr="295.43633121854" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="-36.920711108521765" ytl="68.55484685828492" xbr="103.81835615380712" ybr="295.5246811296593" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="-33.860944149372806" ytl="29.352332134444183" xbr="101.26098297674855" ybr="253.78303617519316" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="-12.529632610641578" ytl="-2.3733903505810474" xbr="98.54216392034834" ybr="180.26275591353203" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="-5.611201357097862" ytl="-10.712216574162454" xbr="83.65268631502317" ybr="135.52562823866205" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4344" label="person">
+    <box frame="0" xtl="102.45968627929688" ytl="538.7009887695312" xbr="242.67141723632812" ybr="718.3016967773438" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="74.10858801607661" ytl="487.22947781145086" xbr="252.39944750184452" ybr="716.9646107066762" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="23.244118997571533" ytl="436.5804822602471" xbr="236.42569461009555" ybr="714.2926930077995" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="-6.642942091743748" ytl="383.1005449589235" xbr="208.45547104185175" ybr="668.1478489185574" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="-17.89318641648515" ytl="322.9322411430636" xbr="189.4369307448322" ybr="603.0227191794972" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="-33.38722057195693" ytl="276.9112117568113" xbr="166.46588715859968" ybr="553.8355263027488" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="-21.63180817105536" ytl="241.3096587682013" xbr="124.4810851591036" ybr="445.3040137465167" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="-22.297809770270455" ytl="195.39658193632323" xbr="82.94681026636115" ybr="346.10941702523377" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="-22.297809770270455" ytl="195.39658193632323" xbr="82.94681026636115" ybr="346.10941702523377" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="-25.45008450567136" ytl="133.98476939333722" xbr="71.06871784350722" ybr="277.5465858250651" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4345" label="person">
+    <box frame="0" xtl="172.75460815429688" ytl="53.830711364746094" xbr="254.29409790039062" ybr="298.56524658203125" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="171.20507663968584" ytl="57.978187371876615" xbr="251.12675309341395" ybr="297.59647489185176" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="170.8554212334597" ytl="59.52185899955734" xbr="250.42191906020417" ybr="297.34706955160493" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="169.69393574010843" ytl="58.2982707378779" xbr="249.563177456008" ybr="296.30795370280464" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="169.3649943563735" ytl="58.704368228866784" xbr="249.29279656306488" ybr="296.2418823013346" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="169.3415460493306" ytl="57.45813167833863" xbr="249.64206980457652" ybr="295.4712016014177" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="172.00622520021466" ytl="57.1429695718368" xbr="253.3749595360073" ybr="296.62741900442336" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="173.39887958008623" ytl="57.28379372006822" xbr="254.45364317288534" ybr="295.1261214876739" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="172.12044169497474" ytl="56.41319879859063" xbr="254.12041991435763" ybr="297.1054659180611" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="173.32148874219044" ytl="57.38823456363761" xbr="253.93221251768392" ybr="293.99128428034567" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="174.7931328396435" ytl="57.606898319402234" xbr="256.71936268743866" ybr="296.4054385270955" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="171.4439930329233" ytl="56.482584398825196" xbr="254.37203169768708" ybr="298.1450196559174" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="172.26298952771464" ytl="56.70977752186948" xbr="255.1596755422219" ybr="298.42084460318233" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="170.91296091134166" ytl="55.85167089132028" xbr="253.35945872298183" ybr="296.4695834813649" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="176.74931953854693" ytl="55.891114997354194" xbr="260.2448573203941" ybr="296.7340608159137" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4346" label="person">
+    <box frame="0" xtl="252.48294067382812" ytl="31.007713317871094" xbr="322.5969543457031" ybr="136.36849975585938" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="252.6254245169403" ytl="30.09656357568158" xbr="321.82604799403595" ybr="134.12340539349012" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="260.1160710124157" ytl="28.873421739129505" xbr="329.6265782409463" ybr="134.22709283562583" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="262.65763698161675" ytl="28.540966628491105" xbr="331.7220632488925" ybr="134.29795769056605" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="262.45865401160233" ytl="28.48827157179769" xbr="330.77300088077124" ybr="134.3552425551724" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="262.57976638066043" ytl="28.893771053362087" xbr="329.4816571315272" ybr="134.0939482030006" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="261.29073101012335" ytl="27.294863111652035" xbr="329.6029315282115" ybr="136.3288361034163" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="254.92479563219146" ytl="29.78009174377786" xbr="327.41196330119055" ybr="144.16737921819998" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="256.0271250133069" ytl="28.050281809950036" xbr="324.71024200668734" ybr="137.40980938575643" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="260.0325104307721" ytl="27.087084620444635" xbr="326.5227789240163" ybr="134.99093301105566" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="261.71058328893196" ytl="26.87863534739231" xbr="326.4305594034582" ybr="133.6961947439973" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="263.1888191030357" ytl="26.507467006279626" xbr="326.8691045251838" ybr="133.71280697100556" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="263.6412645132087" ytl="26.601276486296904" xbr="326.11017690282506" ybr="133.19663189192036" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="262.65913668617986" ytl="27.126621820005816" xbr="324.42978202188067" ybr="133.4114957429267" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="263.7623950725556" ytl="27.240171738246254" xbr="323.7691107241856" ybr="132.03468985214826" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4347" label="person">
+    <box frame="0" xtl="134.40869140625" ytl="27.555015563964844" xbr="203.9959716796875" ybr="267.2522888183594" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="136.54612036383713" ytl="28.20275683442425" xbr="202.7534555679326" ybr="255.8091995617575" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="152.7045234456706" ytl="28.974877687259635" xbr="193.71761555468646" ybr="165.28929513677363" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="154.03847844824512" ytl="29.15143309652632" xbr="190.61230168731552" ybr="147.0120424909078" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="154.10844314313152" ytl="29.15557072032101" xbr="191.28192526225055" ybr="145.06395982295143" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="140.51429208632186" ytl="44.174220575759364" xbr="203.49306410737253" ybr="245.0969209387685" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="137.1987197708811" ytl="25.09893634294835" xbr="211.4881513541796" ybr="268.83338500678633" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4348" label="person">
+    <box frame="0" xtl="594.11767578125" ytl="0.6493911743164062" xbr="636.4439697265625" ybr="83.88560485839844" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="596.6196619996911" ytl="0.24237306452980079" xbr="641.003831793891" ybr="87.33611581345235" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="596.108677528127" ytl="0.8876223565147399" xbr="639.433729152371" ybr="85.6023170223684" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="594.7779576456727" ytl="0.9625207863827185" xbr="637.8363200391198" ybr="84.76288679189292" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="594.7779576456727" ytl="0.9625207863827185" xbr="637.8363200391198" ybr="84.76288679189292" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="594.6250143378027" ytl="1.0805588789075955" xbr="637.9736599658002" ybr="85.28779753810406" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="598.3314227397371" ytl="0.470841490789752" xbr="641.2230721395911" ybr="82.62289089929502" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="592.5581791349938" ytl="0.28987816646918674" xbr="636.6943345936979" ybr="83.07704384002903" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="585.9813293093546" ytl="0.2860684501650965" xbr="626.496336595631" ybr="73.87221219173762" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4349" label="person">
+    <box frame="0" xtl="530.6036987304688" ytl="0.36598968505859375" xbr="568.6973266601562" ybr="77.12525177001953" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="530.6036987304688" ytl="0.36598968505859375" xbr="568.6973266601562" ybr="77.12525177001953" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="530.6036987304688" ytl="0.36598968505859375" xbr="568.6973266601562" ybr="77.12525177001953" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="530.6036987304688" ytl="0.36598968505859375" xbr="568.6973266601562" ybr="77.12525177001953" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="510.4563805331315" ytl="0.8389683309755327" xbr="550.1907565557312" ybr="77.24900589337632" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="508.4923039748471" ytl="0.29547681927972747" xbr="547.8716680610694" ybr="75.58344644540472" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="509.36787511048453" ytl="0.2205470158565248" xbr="547.3734048146101" ybr="73.04027984923792" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="523.1454444216317" ytl="0.5243434205198412" xbr="564.0991522561867" ybr="75.54851777565734" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="523.1454444216317" ytl="0.5243434205198412" xbr="564.0991522561867" ybr="75.54851777565734" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="524.382390607578" ytl="0.06941634294768306" xbr="567.6796619678934" ybr="76.98596721118452" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="524.382390607578" ytl="0.06941634294768306" xbr="567.6796619678934" ybr="76.98596721118452" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="524.382390607578" ytl="0.06941634294768306" xbr="567.6796619678934" ybr="76.98596721118452" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="503.8889114240563" ytl="0.25035392019802316" xbr="547.4374107807231" ybr="75.42819723681212" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="503.8889114240563" ytl="0.25035392019802316" xbr="547.4374107807231" ybr="75.42819723681212" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="495.0014486908687" ytl="0.5917045002922876" xbr="538.5504900701945" ybr="74.555314212772" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4350" label="person">
+    <box frame="0" xtl="826.4164428710938" ytl="0.7393627166748047" xbr="870.0536499023438" ybr="63.042503356933594" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="826.4164428710938" ytl="0.7393627166748047" xbr="870.0536499023438" ybr="63.042503356933594" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="846.3265511895229" ytl="0.13744483651204575" xbr="893.5240251146307" ybr="67.88219068187988" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="847.0675669038925" ytl="0.24270513945882044" xbr="893.8140110119983" ybr="68.16411643810008" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="849.9306516821674" ytl="0.28819574177477136" xbr="896.1768058565174" ybr="68.13232519217418" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="849.6243113863811" ytl="0.3255492163951814" xbr="895.504266569085" ybr="68.45006904292768" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="851.4417102841015" ytl="0.3285412616995984" xbr="896.9817644845026" ybr="68.4534690285008" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="849.5911331517041" ytl="0.3087007220118565" xbr="894.7335084613877" ybr="68.49417872842966" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4351" label="person">
+    <box frame="0" xtl="146.72988891601562" ytl="46.174041748046875" xbr="191.8216552734375" ybr="275.7784729003906" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="146.72988891601562" ytl="46.174041748046875" xbr="191.8216552734375" ybr="275.7784729003906" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="146.72988891601562" ytl="46.174041748046875" xbr="191.8216552734375" ybr="275.7784729003906" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="150.51652705661672" ytl="27.236254813894888" xbr="194.58595221985868" ybr="246.64924168233392" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="150.6635437251303" ytl="27.872531657997783" xbr="198.41404532700162" ybr="262.215062718678" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="153.07849886231224" ytl="27.242321695473663" xbr="201.68975379595037" ybr="263.4378487773655" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="155.25365403736106" ytl="25.4460004680694" xbr="204.36637433835855" ybr="262.2888972527901" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="155.2199317997041" ytl="26.249185572025638" xbr="204.2606973681561" ybr="260.22911434507904" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="154.4757004516046" ytl="26.976421691151117" xbr="202.8689084598819" ybr="254.59103918131171" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="154.15232567441547" ytl="27.599548343881324" xbr="204.40200986929455" ybr="262.3189780389492" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="147.4536773895792" ytl="26.9772886487943" xbr="199.20499285039347" ybr="260.16508779076224" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="139.8852895644272" ytl="28.384224820147878" xbr="192.47013303600366" ybr="256.7959275687801" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="143.05668241451275" ytl="41.89111699537651" xbr="194.85678080285126" ybr="270.2148444132034" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="145.22318615554155" ytl="22.060749300216372" xbr="195.20118189102078" ybr="241.93204447559592" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="147.85323300179618" ytl="25.303549333440543" xbr="199.21440967060738" ybr="249.27186740840338" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4352" label="person">
+    <box frame="0" xtl="197.23944091796875" ytl="7.567401885986328" xbr="245.15869140625" ybr="90.43867492675781" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="193.43676547606591" ytl="11.00107678500089" xbr="250.5323966373445" ybr="110.0373801239266" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="193.43676547606591" ytl="11.00107678500089" xbr="250.5323966373445" ybr="110.0373801239266" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="192.770391128987" ytl="3.8929136644144293" xbr="258.05452976722825" ybr="117.99939235460275" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="194.1183194686785" ytl="5.528446854089793" xbr="262.20998649254733" ybr="124.80501808316521" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="195.4459646400312" ytl="4.024480885480806" xbr="262.5692281962592" ybr="121.65599491720582" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="210.36558985258492" ytl="13.97368856946612" xbr="268.6773822076782" ybr="115.9253968300245" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4353" label="person">
+    <box frame="0" xtl="200.1330108642578" ytl="25.10677719116211" xbr="242.6291046142578" ybr="82.61668395996094" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4354" label="person">
+    <box frame="0" xtl="486.7985534667969" ytl="1.2216262817382812" xbr="529.9361572265625" ybr="87.56647491455078" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="1" xtl="465.1379415410692" ytl="0.7287429620411743" xbr="511.65076004443245" ybr="92.79261048372126" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="2" xtl="483.5710403927577" ytl="0.30806272931197753" xbr="529.0815745799846" ybr="89.47430302700838" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="497.57018306515175" ytl="0.8675026312923677" xbr="539.8102739787065" ybr="80.13355659802933" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="495.2422909634327" ytl="0.5442888710255929" xbr="534.0113321268668" ybr="73.03977048442101" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="502.94937570433353" ytl="0.04758567259971613" xbr="538.8757752643498" ybr="66.5274663760141" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="6" xtl="502.94937570433353" ytl="0.04758567259971613" xbr="538.8757752643498" ybr="66.5274663760141" outside="1" occluded="0" keyframe="0">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="514.1195604252408" ytl="-0.03451430564989266" xbr="552.6196361866671" ybr="71.38577112029651" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="514.6730212418536" ytl="-0.7621139953596412" xbr="554.2021339839392" ybr="72.84978825202725" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="514.2043802631745" ytl="-0.6228868875686828" xbr="554.535517566388" ybr="73.83329878347224" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="514.084094775326" ytl="-0.47462081972712156" xbr="554.3363809910002" ybr="74.13498361301666" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="513.9825743127863" ytl="0.029768680457642915" xbr="553.8191535795204" ybr="73.89430398544758" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="514.3168279864489" ytl="-0.06790308218167951" xbr="554.1124636282241" ybr="74.42493155901292" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="513.908739326539" ytl="-0.3381158026525526" xbr="553.646553275639" ybr="74.64788750604765" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="515.0546780793663" ytl="0.10619132178482715" xbr="553.9154944535692" ybr="73.78419017525206" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4355" label="person">
+    <box frame="2" xtl="-21.068260065295142" ytl="582.14326171875" xbr="138.14317995665257" ybr="718.241455078125" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="3" xtl="-48.922825279715916" ytl="528.1910699103126" xbr="171.10829722288287" ybr="718.1855822771349" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="4" xtl="-82.90688095065306" ytl="469.49389984001317" xbr="199.0622455043284" ybr="717.614436840854" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="5" xtl="-117.7818226308041" ytl="409.8058831428607" xbr="216.90621669564402" ybr="712.9159359962916" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4357" label="person">
+    <box frame="6" xtl="542.0702126388246" ytl="0.578392791748044" xbr="580.5194113846129" ybr="77.19022827148437" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="7" xtl="543.5078013143823" ytl="0.6227340450646537" xbr="581.4168204640429" ybr="75.74959991822485" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="543.9021473632274" ytl="0.613246920432104" xbr="582.2775484740181" ybr="75.56944436973798" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="542.3330656522668" ytl="0.9692467537216913" xbr="580.3853977275566" ybr="75.38198106687166" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="542.4184686903312" ytl="1.6093868677516383" xbr="579.9695731264363" ybr="75.16473666948552" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="543.1760134442293" ytl="0.988451911440329" xbr="580.6294403302014" ybr="74.48106190215395" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="542.9760946079799" ytl="0.8156616692830667" xbr="580.5752273589993" ybr="74.36334076209741" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="542.7771387522941" ytl="0.9606676418857063" xbr="580.7617623440866" ybr="74.97375490040487" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="542.586360417114" ytl="0.6902326366658116" xbr="580.747904834365" ybr="74.86285748909323" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4359" label="person">
+    <box frame="7" xtl="-4.691943957933482" ytl="295.3747924804687" xbr="80.1162306095448" ybr="598.8579345703124" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="8" xtl="-13.067335996862496" ytl="240.77935942824766" xbr="69.62023273810145" ybr="538.9127626321576" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="-13.022694306145098" ytl="213.47096652824888" xbr="57.79960205696143" ybr="471.4549474473885" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="-0.25408046303060416" ytl="104.74768457313792" xbr="75.56803752816543" ybr="379.9602645506658" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="0.5548716295084546" ytl="58.066899534849256" xbr="72.6402418194842" ybr="319.64942434996703" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="6.999360578475411" ytl="22.632078834375335" xbr="82.55630030185972" ybr="293.51780761887505" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="11.943369522625375" ytl="-6.686775542906432" xbr="83.08219696516149" ybr="242.64683512528813" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="0.48741229627541927" ytl="-15.343221768373581" xbr="62.861048201083904" ybr="206.17968296271576" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4361" label="person">
+    <box frame="8" xtl="434.4757826764254" ytl="0.11470718383789347" xbr="493.47556009701213" ybr="69.83726196289062" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="9" xtl="425.92921270560316" ytl="0.3287129138447682" xbr="487.0696089843604" ybr="72.8346603871007" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="422.9511735525009" ytl="0.17752736790728818" xbr="488.0723092436187" ybr="77.97919903185498" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4362" label="person">
+    <box frame="9" xtl="360.19021732172877" ytl="99.56332397460936" xbr="430.64595211186503" ybr="246.2352355957031" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="10" xtl="383.8378129691891" ytl="107.73955780321424" xbr="447.9596341287083" ybr="240.5924562484046" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="11" xtl="390.62014361380557" ytl="100.90180699668946" xbr="458.9500849209739" ybr="242.03050328050125" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="12" xtl="394.666270568973" ytl="98.53042095301757" xbr="463.62047125823864" ybr="240.827634275058" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="394.6857199743312" ytl="99.87274398261887" xbr="461.84452892688535" ybr="237.6402262090063" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="393.9145067468351" ytl="102.70478215268867" xbr="460.85072821866527" ybr="238.96925425055673" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4365" label="person">
+    <box frame="11" xtl="617.9890668478897" ytl="0.5780189514160128" xbr="667.5053423317978" ybr="68.58817749023437" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4366" label="person">
+    <box frame="12" xtl="480.6812511217324" ytl="0.3229125976562486" xbr="527.3130726087364" ybr="74.49506835937501" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="13" xtl="482.44876616687856" ytl="-0.03527245109656718" xbr="528.8854602981131" ybr="74.20953722274498" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+    <box frame="14" xtl="483.5837816227327" ytl="-0.040891385065613406" xbr="529.550568022504" ybr="73.98181667284342" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+  <track id="4370" label="person">
+    <box frame="14" xtl="797.7461462412629" ytl="0.40711631774902557" xbr="818.9777551259245" ybr="59.30868072509766" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">normal_walk</attribute>
+      <attribute name="phone_usage">no_phone</attribute>
+      <attribute name="social_interaction">alone</attribute>
+      <attribute name="carrying_items">empty_hands</attribute>
+      <attribute name="street_behavior">sidewalk_walking</attribute>
+      <attribute name="posture_gesture">upright_normal</attribute>
+      <attribute name="clothing_style">business_attire</attribute>
+      <attribute name="time_context">rush_hour</attribute>
+    </box>
+  </track>
+</annotations>

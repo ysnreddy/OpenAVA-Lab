@@ -1,248 +1,219 @@
-import json
-import os
-import psycopg2
+import argparse
 import logging
-import time
+import json
 import xml.etree.ElementTree as ET
-from typing import List, Dict, Any
-from pathlib import Path
+from typing import Dict, List, Optional
+import time
+import io
+import zipfile
 
-# Assuming cvat_integration is in the same services directory
+import psycopg2
+import psycopg2.extras
+
+# Assume cvat_integration.py is in the services directory
 from cvat_integration import CVATClient
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
-
-# --- PostgreSQL Database Schema ---
-# You need to run this SQL code in your PostgreSQL database once to create the necessary tables.
-# You can use a tool like DBeaver, pgAdmin, or the `psql` command-line tool.
-"""
-CREATE TABLE IF NOT EXISTS projects (
-    project_id INTEGER PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS tasks (
-    task_id INTEGER PRIMARY KEY,
-    project_id INTEGER REFERENCES projects(project_id),
-    name VARCHAR(255) NOT NULL,
-    status VARCHAR(50),
-    assignee VARCHAR(255),
-    retrieved_at TIMESTAMP WITH TIME ZONE,
-    qc_status VARCHAR(50) DEFAULT 'pending' -- e.g., pending, approved, rejected
-);
-
-CREATE TABLE IF NOT EXISTS annotations (
-    annotation_id SERIAL PRIMARY KEY,
-    task_id INTEGER REFERENCES tasks(task_id),
-    track_id INTEGER NOT NULL,
-    frame INTEGER NOT NULL,
-    xtl REAL,
-    ytl REAL,
-    xbr REAL,
-    ybr REAL,
-    outside BOOLEAN,
-    attributes JSONB -- Store all action attributes as a JSON object
-);
-"""
 
 
 class PostAnnotationService:
-    def __init__(self, db_params: Dict[str, Any], cvat_client: CVATClient):
-        """
-        Initializes the service with database connection parameters and a CVAT client.
-
-        Args:
-            db_params (Dict): Dictionary with keys like 'dbname', 'user', 'password', 'host', 'port'.
-            cvat_client (CVATClient): An authenticated CVATClient instance.
-        """
+    def __init__(self, db_params: Dict[str, str], cvat_client: CVATClient):
         self.db_params = db_params
         self.cvat_client = cvat_client
-        self.conn = None
+        self.conn: Optional[psycopg2.extensions.connection] = None
 
-    def connect_db(self):
-        """Establishes a connection to the PostgreSQL database."""
+    def connect_db(self) -> bool:
         try:
             self.conn = psycopg2.connect(**self.db_params)
-            logger.info("✓ Successfully connected to PostgreSQL database.")
+            logger.info("✓ Successfully connected to PostgreSQL.")
+            return True
         except psycopg2.OperationalError as e:
             logger.error(f"✗ Could not connect to the database: {e}")
             self.conn = None
+            return False
 
-    def close_db(self):
-        """Closes the database connection."""
+    def close_db(self) -> None:
         if self.conn:
             self.conn.close()
             logger.info("Database connection closed.")
+            self.conn = None
 
-    def get_completed_tasks_from_cvat(self, project_id: int) -> List[Dict[str, Any]]:
-        """
-        Fetches all tasks from a CVAT project and filters for those marked 'completed'.
-        """
+    def get_completed_jobs_from_cvat(self, project_id: int) -> List[Dict]:
         try:
-            url = f"{self.cvat_client.host}/api/tasks?project_id={project_id}"
-            response = self.cvat_client._make_authenticated_request('GET', url)
-            response.raise_for_status()
-
-            tasks = response.json().get('results', [])
-            completed_tasks = [t for t in tasks if t.get('status') == 'completed']
-            logger.info(f"Found {len(completed_tasks)} completed tasks in project {project_id}.")
-            return completed_tasks
+            url = f"{self.cvat_client.host}/api/jobs?project_id={project_id}"
+            resp = self.cvat_client._make_authenticated_request("GET", url)
+            resp.raise_for_status()
+            jobs = resp.json().get("results", [])
+            completed_jobs = [job for job in jobs if job.get("state") == "completed"]
+            logger.info(f"Found {len(completed_jobs)} completed jobs in CVAT project {project_id}")
+            return completed_jobs
         except Exception as e:
-            logger.error(f"Failed to fetch tasks from CVAT: {e}")
+            logger.error(f"Error fetching jobs from CVAT: {e}")
             return []
 
-    def export_annotations_from_cvat(self, task_id: int) -> str | None:
-        """
-        Exports annotations for a given task from CVAT in XML format.
-        """
+    def export_annotations_from_job(self, job_id: int) -> Optional[Dict]:
         try:
-            # Note: The format name might need adjustment based on your CVAT version.
-            url = f"{self.cvat_client.host}/api/tasks/{task_id}/annotations?format=CVAT%201.1"
-            response = self.cvat_client._make_authenticated_request('GET', url)
-            response.raise_for_status()
-            return response.text  # Returns the XML content as a string
+            url = f"{self.cvat_client.host}/api/jobs/{job_id}/dataset/export"
+            params = {"format": "CVAT for video 1.1", "save_images": False}
+            resp = self.cvat_client._make_authenticated_request("POST", url, params=params)
+
+            if resp.status_code != 202:
+                logger.error(f"Failed to start export for job {job_id}: {resp.status_code} - {resp.text}")
+                return None
+
+            rq_id = resp.json().get("rq_id")
+            if not rq_id: return None
+
+            logger.info(f"Started annotation export job {rq_id} for job {job_id}")
+            while True:
+                status_resp = self.cvat_client._make_authenticated_request("GET",
+                                                                           f"{self.cvat_client.host}/api/requests/{rq_id}")
+                if status_resp.status_code != 200: return None
+
+                status_data = status_resp.json()
+                status = status_data.get("status")
+
+                if status == "finished":
+                    result_url = status_data.get("result_url")
+                    if not result_url: return None
+
+                    download_resp = self.cvat_client._make_authenticated_request("GET", result_url)
+                    download_resp.raise_for_status()
+
+                    with zipfile.ZipFile(io.BytesIO(download_resp.content)) as z:
+                        for filename in z.namelist():
+                            if filename.lower().endswith('annotations.xml'):
+                                xml_data = z.read(filename).decode('utf-8')
+                                logger.info(f"✓ Successfully extracted '{filename}' for job {job_id}.")
+                                return {"type": "xml", "data": xml_data}
+                    return None
+                elif status == "failed":
+                    logger.error(f"✗ Annotation export failed for job {job_id}: {status_data}")
+                    return None
+                else:
+                    time.sleep(3)
         except Exception as e:
-            logger.error(f"Failed to export annotations for task {task_id}: {e}")
+            logger.error(f"Failed to export annotations for job {job_id}: {e}")
             return None
 
-    def parse_and_store_annotations(self, task_id: int, project_id: int, assignee: str, xml_data: str):
-        """
-        Parses the CVAT XML data and stores it in the PostgreSQL database.
-        """
-        if not self.conn:
-            logger.error("No database connection.")
+    @staticmethod
+    def _parse_cvat_xml(xml_text: str) -> List[tuple]:
+        root = ET.fromstring(xml_text)
+        annotations = []
+        for track in root.findall("track"):
+            track_id = int(track.get("id"))
+            for box in track.findall("box"):
+                annotations.append((
+                    track_id, int(box.get("frame")), float(box.get("xtl")), float(box.get("ytl")),
+                    float(box.get("xbr")), float(box.get("ybr")), box.get("outside") == "1",
+                    json.dumps({attr.get("name"): (attr.text or "") for attr in box.findall("attribute")}),
+                ))
+        return annotations
+
+    def process_and_store_job(self, project_id: int, job: Dict) -> None:
+        if not self.conn: raise ConnectionError("Database not connected.")
+        job_id, task_id = job["id"], job["task_id"]
+        assignee = (job.get("assignee") or {}).get("username", "N/A")
+
+        logger.info(f"Processing completed job {job_id} for task {task_id} by {assignee}...")
+        annotations_data = self.export_annotations_from_job(job_id)
+        if not annotations_data or annotations_data.get("type") != "xml":
+            logger.warning(f"No valid XML annotations for job {job_id}. Skipping.")
+            return
+
+        annotations = self._parse_cvat_xml(annotations_data["data"])
+        if not annotations:
+            logger.warning(f"No annotations could be parsed for job {job_id}. Skipping.")
             return
 
         try:
-            root = ET.fromstring(xml_data)
-            annotations_to_insert = []
+            with self.conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO tasks (task_id, project_id, name, status, assignee, retrieved_at) VALUES (%s, %s, %s, %s, %s, CURRENT_TIMESTAMP) ON CONFLICT (task_id) DO UPDATE SET status = EXCLUDED.status, assignee = EXCLUDED.assignee, retrieved_at = EXCLUDED.retrieved_at;",
+                    (task_id, project_id, f"Task {task_id}", 'completed', assignee)
+                )
+                cur.execute("DELETE FROM annotations WHERE task_id = %s;", (task_id,))
+                insert_query = "INSERT INTO annotations (task_id, track_id, frame, xtl, ytl, xbr, ybr, outside, attributes) VALUES %s;"
+                data_to_insert = [(task_id,) + ann for ann in annotations]
+                psycopg2.extras.execute_values(cur, insert_query, data_to_insert,
+                                               template="(%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+                logger.info(f"✓ Stored {cur.rowcount} annotations for task {task_id}.")
+            self.conn.commit()
+        except Exception as e:
+            logger.error(f"Database transaction failed for task {task_id}: {e}")
+            self.conn.rollback()
 
-            for track in root.findall('track'):
-                track_id = int(track.get('id'))
-                for box in track.findall('box'):
-                    frame = int(box.get('frame'))
-                    attributes = {attr.get('name'): attr.text for attr in box.findall('attribute')}
-
-                    annotation = {
-                        "task_id": task_id,
-                        "track_id": track_id,
-                        "frame": frame,
-                        "xtl": float(box.get('xtl')),
-                        "ytl": float(box.get('ytl')),
-                        "xbr": float(box.get('xbr')),
-                        "ybr": float(box.get('ybr')),
-                        "outside": box.get('outside') == '1',
-                        "attributes": json.dumps(attributes)
-                    }
-                    annotations_to_insert.append(annotation)
+    def run_sync(self, project_id: int) -> None:
+        if not self.connect_db(): return
+        try:
+            # ✨ FIX: Get project details from CVAT to ensure it exists in our DB
+            project_details = self.cvat_client.get_project_details(project_id)
+            if not project_details:
+                logger.error(f"Could not find project with ID {project_id} in CVAT.")
+                return
 
             with self.conn.cursor() as cur:
-                # First, update the task's status in our database
+                # ✨ FIX: Insert the project into our DB before processing tasks
                 cur.execute(
-                    """
-                    UPDATE tasks
-                    SET status       = %s,
-                        retrieved_at = CURRENT_TIMESTAMP,
-                        assignee     = %s
-                    WHERE task_id = %s;
-                    INSERT INTO tasks (task_id, project_id, status, retrieved_at, assignee)
-                    SELECT %s,
-                           %s,
-                           %s,
-                           CURRENT_TIMESTAMP,
-                           %s WHERE NOT EXISTS (SELECT 1 FROM tasks WHERE task_id = %s);
-                    """,
-                    ('completed', assignee, task_id, task_id, project_id, 'completed', assignee, task_id)
+                    "INSERT INTO projects (project_id, name) VALUES (%s, %s) ON CONFLICT (project_id) DO NOTHING;",
+                    (project_id, project_details['name'])
                 )
+                self.conn.commit()
 
-                # Then, insert all the annotations
-                for ann in annotations_to_insert:
-                    cur.execute(
-                        """
-                        INSERT INTO annotations (task_id, track_id, frame, xtl, ytl, xbr, ybr, outside, attributes)
-                        VALUES (%(task_id)s, %(track_id)s, %(frame)s, %(xtl)s, %(ytl)s, %(xbr)s, %(ybr)s, %(outside)s,
-                                %(attributes)s);
-                        """,
-                        ann
-                    )
+                completed_jobs = self.get_completed_jobs_from_cvat(project_id)
+                cur.execute("SELECT task_id FROM tasks WHERE qc_status != 'pending'")
+                processed_task_ids = {row[0] for row in cur.fetchall()}
 
-            self.conn.commit()
-            logger.info(f"✓ Stored {len(annotations_to_insert)} annotations for task {task_id}.")
+            jobs_to_process = [j for j in completed_jobs if j['task_id'] not in processed_task_ids]
+            logger.info(f"Found {len(jobs_to_process)} new completed jobs to process.")
 
-        except Exception as e:
-            self.conn.rollback()
-            logger.error(f"Failed to parse or store annotations for task {task_id}: {e}")
-
-    def run_sync(self, project_id: int):
-        """
-        Runs the full synchronization process: fetches completed tasks, exports their
-        annotations, and stores them in the database.
-        """
-        self.connect_db()
-        if not self.conn:
-            return
-
-        logger.info(f"Starting sync for project ID: {project_id}...")
-
-        # 1. Get completed tasks from CVAT
-        completed_cvat_tasks = self.get_completed_tasks_from_cvat(project_id)
-
-        # 2. Get tasks already processed from our DB to avoid re-processing
-        with self.conn.cursor() as cur:
-            cur.execute("SELECT task_id FROM tasks WHERE status = 'completed'")
-            processed_task_ids = {row[0] for row in cur.fetchall()}
-
-        # 3. Determine which new tasks to process
-        tasks_to_process = [
-            task for task in completed_cvat_tasks
-            if task['id'] not in processed_task_ids
-        ]
-
-        logger.info(f"Found {len(tasks_to_process)} new completed tasks to process.")
-
-        # 4. Process each new task
-        for task in tasks_to_process:
-            task_id = task['id']
-            assignee = task.get('assignee', {}).get('username', 'N/A') if task.get('assignee') else 'N/A'
-
-            logger.info(f"Processing task {task_id} assigned to {assignee}...")
-
-            xml_data = self.export_annotations_from_cvat(task_id)
-            if xml_data:
-                self.parse_and_store_annotations(task_id, project_id, assignee, xml_data)
-            else:
-                logger.warning(f"Could not retrieve XML for task {task_id}. Skipping.")
-
-        self.close_db()
-        logger.info("Sync process finished.")
+            for job in jobs_to_process:
+                self.process_and_store_job(project_id, job)
+        finally:
+            self.close_db()
 
 
-if __name__ == '__main__':
-    # --- Example Usage ---
-    # 1. Fill in your CVAT and Database credentials
-    CVAT_HOST = "http://localhost:8080"
-    CVAT_USERNAME = "mv350"
-    CVAT_PASSWORD = "Amazon123"
+def parse_args():
+    parser = argparse.ArgumentParser(description="Sync completed CVAT jobs to a PostgreSQL database.")
+    parser.add_argument("--project-id", required=True, type=int, help="CVAT project ID to sync.")
+    return parser.parse_args()
 
+
+if __name__ == "__main__":
     DB_PARAMS = {
-        "dbname": "cvat_annotations",
-        "user": "postgres",
-        "password": "Amazon123",
+        "dbname": "cvat_annotations_db",
+        "user": "admin",
+        "password": "admin",
         "host": "localhost",
-        "port": "5433"
+        "port": "55432",
     }
+    CVAT_HOST = "http://localhost:8080"
+    CVAT_USERNAME = "strawhat03"
+    CVAT_PASSWORD = "Test@123"
 
-    # The ID of the project in CVAT you want to monitor
-    PROJECT_ID_TO_SYNC = 1
+    # You will need to add a 'get_project_details' method to your CVATClient
+    # Here's how to add it to your services/cvat_integration.py file:
+    """
+    # In services/cvat_integration.py, inside the CVATClient class:
 
-    # 2. Initialize the clients
+    def get_project_details(self, project_id: int) -> Optional[Dict]:
+        try:
+            url = f"{self.host}/api/projects/{project_id}"
+            resp = self._make_authenticated_request("GET", url)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            logger.error(f"Failed to get project details for ID {project_id}: {e}")
+            return None
+    """
+
+    args = parse_args()
+    # Make sure your CVATClient class has the get_project_details method
     cvat_client = CVATClient(host=CVAT_HOST, username=CVAT_USERNAME, password=CVAT_PASSWORD)
 
     if cvat_client.authenticated:
-        # 3. Run the service
         service = PostAnnotationService(db_params=DB_PARAMS, cvat_client=cvat_client)
-        service.run_sync(project_id=PROJECT_ID_TO_SYNC)
+        service.run_sync(project_id=args.project_id)
     else:
-        logger.error("Could not authenticate with CVAT. Exiting.")
+        logger.error("CVAT client authentication failed. Exiting.")

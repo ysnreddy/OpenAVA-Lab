@@ -164,11 +164,11 @@ class QualityService:
 if __name__ == '__main__':
     # --- Example Usage ---
     DB_PARAMS = {
-        "dbname": "cvat_annotations",
-        "user": "postgres",
-        "password": "your_db_password",
+        "dbname": "cvat_annotations_db",  # match docker-compose
+        "user": "admin",                  # match POSTGRES_USER
+        "password": "admin",              # match POSTGRES_PASSWORD
         "host": "localhost",
-        "port": "5432"
+        "port": "55432"                   # match host exposed port
     }
 
     # The IDs of two tasks that correspond to the same clip (overlap tasks)

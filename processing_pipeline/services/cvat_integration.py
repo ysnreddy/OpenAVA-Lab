@@ -2,7 +2,7 @@ import requests
 import json
 import os
 import logging
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from pathlib import Path
 import time
 
@@ -20,6 +20,7 @@ class CVATClient:
         self.authenticated = self.login()
 
     def login(self) -> bool:
+        """Log in to CVAT and store API token."""
         try:
             url = f"{self.host}/api/auth/login"
             resp = self.session.post(url, json={"username": self.username, "password": self.password}, timeout=30)
@@ -48,12 +49,21 @@ class CVATClient:
             logger.error(f"Request failed: {method} {url} - {e}")
             raise
 
+    def get_project_details(self, project_id: int) -> Optional[Dict]:
+        """ ✨ NEW: Fetches details for a specific project. """
+        try:
+            url = f"{self.host}/api/projects/{project_id}"
+            resp = self._make_authenticated_request("GET", url)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            logger.error(f"Failed to get project details for ID {project_id}: {e}")
+            return None
+
     def create_project(self, name: str, labels: List[Dict[str, Any]], org_slug: str = None) -> int | None:
         """Creates a new project, optionally within an organization."""
         try:
             payload = {"name": name, "labels": labels}
-
-            # ✨ FIX: Use the 'org' parameter, which is more common in CVAT APIs.
             if org_slug:
                 payload['org'] = org_slug
                 logger.info(f"Creating project in organization: {org_slug}")
@@ -190,7 +200,7 @@ class CVATClient:
             ok = True
             for job in jobs:
                 j_resp = self._make_authenticated_request('PATCH', f"{self.host}/api/jobs/{job['id']}",
-                                                          json={'assignee': user_id})
+                                                            json={'assignee': user_id})
                 if j_resp.status_code == 200:
                     logger.info(f"✓ Assigned '{username}' to job {job['id']}")
                 else:
@@ -221,29 +231,14 @@ def get_default_labels() -> List[Dict[str, Any]]:
             "color": "#ff0000",
             "tools": [{"name": "box", "type": "box"}],
             "attributes": [
-                {"name": "walking_behavior", "mutable": True, "input_type": "select", "default_value": "normal_walk",
-                 "values": ["normal_walk", "fast_walk", "slow_walk", "standing_still", "jogging", "window_shopping"]},
-                {"name": "phone_usage", "mutable": True, "input_type": "select", "default_value": "no_phone",
-                 "values": ["no_phone", "talking_phone", "texting", "taking_photo", "listening_music"]},
-                {"name": "social_interaction", "mutable": True, "input_type": "select", "default_value": "alone",
-                 "values": ["alone", "talking_companion", "group_walking", "greeting_someone", "asking_directions",
-                            "avoiding_crowd"]},
-                {"name": "carrying_items", "mutable": True, "input_type": "select", "default_value": "empty_hands",
-                 "values": ["empty_hands", "shopping_bags", "backpack", "briefcase_bag", "umbrella", "food_drink",
-                            "multiple_items"]},
-                {"name": "street_behavior", "mutable": True, "input_type": "select",
-                 "default_value": "sidewalk_walking",
-                 "values": ["sidewalk_walking", "crossing_street", "waiting_signal", "looking_around", "checking_map",
-                            "entering_building", "exiting_building"]},
-                {"name": "posture_gesture", "mutable": True, "input_type": "select", "default_value": "upright_normal",
-                 "values": ["upright_normal", "looking_down", "looking_up", "hands_in_pockets", "arms_crossed",
-                            "pointing_gesture", "bowing_gesture"]},
-                {"name": "clothing_style", "mutable": True, "input_type": "select", "default_value": "business_attire",
-                 "values": ["business_attire", "casual_wear", "tourist_style", "school_uniform", "sports_wear",
-                            "traditional_wear"]},
-                {"name": "time_context", "mutable": True, "input_type": "select", "default_value": "rush_hour",
-                 "values": ["rush_hour", "leisure_time", "shopping_time", "tourist_hours", "lunch_break",
-                            "evening_stroll"]},
+                {"name": "walking_behavior", "mutable": True, "input_type": "select", "default_value": "normal_walk", "values": ["normal_walk", "fast_walk", "slow_walk", "standing_still", "jogging", "window_shopping"]},
+                {"name": "phone_usage", "mutable": True, "input_type": "select", "default_value": "no_phone", "values": ["no_phone", "talking_phone", "texting", "taking_photo", "listening_music"]},
+                {"name": "social_interaction", "mutable": True, "input_type": "select", "default_value": "alone", "values": ["alone", "talking_companion", "group_walking", "greeting_someone", "asking_directions", "avoiding_crowd"]},
+                {"name": "carrying_items", "mutable": True, "input_type": "select", "default_value": "empty_hands", "values": ["empty_hands", "shopping_bags", "backpack", "briefcase_bag", "umbrella", "food_drink", "multiple_items"]},
+                {"name": "street_behavior", "mutable": True, "input_type": "select", "default_value": "sidewalk_walking", "values": ["sidewalk_walking", "crossing_street", "waiting_signal", "looking_around", "checking_map", "entering_building", "exiting_building"]},
+                {"name": "posture_gesture", "mutable": True, "input_type": "select", "default_value": "upright_normal", "values": ["upright_normal", "looking_down", "looking_up", "hands_in_pockets", "arms_crossed", "pointing_gesture", "bowing_gesture"]},
+                {"name": "clothing_style", "mutable": True, "input_type": "select", "default_value": "business_attire", "values": ["business_attire", "casual_wear", "tourist_style", "school_uniform", "sports_wear", "traditional_wear"]},
+                {"name": "time_context", "mutable": True, "input_type": "select", "default_value": "rush_hour", "values": ["rush_hour", "leisure_time", "shopping_time", "tourist_hours", "lunch_break", "evening_stroll"]},
             ]
         }
     ]
