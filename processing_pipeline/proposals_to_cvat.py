@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_image_dimensions(frame_path):
+    """Reads an image file and returns its width and height."""
     try:
         img = cv2.imread(frame_path)
         if img is not None:
@@ -26,12 +27,16 @@ def get_image_dimensions(frame_path):
 
 
 def prettify_xml(elem):
+    """Return a pretty-printed XML string for the Element."""
     rough_string = ET.tostring(elem, 'utf-8')
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="  ")
 
 
 def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, clip_id):
+    """
+    Generates a robust CVAT XML 1.1 file, using correct frame indexing and filling track gaps.
+    """
     annotations = ET.Element('annotations')
     ET.SubElement(annotations, 'version').text = '1.1'
 
@@ -42,10 +47,6 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
     ET.SubElement(task, 'size').text = str(len(frames_data))
     ET.SubElement(task, 'mode').text = 'interpolation'
     ET.SubElement(task, 'overlap').text = '0'
-    ET.SubElement(task, 'bugtracker')
-    ET.SubElement(task, 'created').text = '2025-08-26 12:00:00.000000+02:00'
-    ET.SubElement(task, 'updated').text = '2025-08-26 12:00:00.000000+02:00'
-    ET.SubElement(task, 'subset').text = 'default'
 
     original_size = ET.SubElement(task, 'original_size')
     ET.SubElement(original_size, 'width').text = str(image_width)
@@ -66,7 +67,6 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
         ET.SubElement(attribute, 'default_value').text = default_value
         ET.SubElement(attribute, 'values').text = '\n'.join(attr_data['options'].values())
 
-    # ✨ FIX: Create a mapping from filename to a zero-based index
     sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
     frame_map = {name: i for i, name in enumerate(sorted_frame_names)}
 
@@ -86,12 +86,12 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
             continue
 
         min_frame = min(detections_by_frame.keys())
+        # ✨ FINAL GHOSTING FIX: A track only exists between its first and last appearance.
         max_frame = max(detections_by_frame.keys())
         last_known_bbox = None
 
         for frame_num in range(min_frame, max_frame + 1):
             bbox = detections_by_frame.get(frame_num)
-
             is_outside = "1" if bbox is None else "0"
             is_keyframe = "1" if bbox is not None else "0"
 
@@ -104,9 +104,7 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
             box_attributes = {
                 'frame': str(frame_num), 'xtl': str(x1), 'ytl': str(y1),
                 'xbr': str(x2), 'ybr': str(y2),
-                'outside': is_outside,
-                'occluded': '0',
-                'keyframe': is_keyframe
+                'outside': is_outside, 'occluded': '0', 'keyframe': is_keyframe
             }
             box_xml = ET.SubElement(track_xml, 'box', box_attributes)
 
@@ -117,7 +115,7 @@ def generate_cvat_xml(frames_data, image_width, image_height, attributes_dict, c
     return prettify_xml(annotations)
 
 
-def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
+def process_clip(video_id, frames_data, frame_dir, output_zip_dir, output_xml_dir, attributes_dict):
     """
     Generates a ZIP file with only frames and a separate XML file.
     """
@@ -127,13 +125,14 @@ def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
         return False
 
     try:
-        sorted_frame_names = sorted(frames_data.keys(), key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
+        # Filter for jpg files to avoid other files in directory
+        image_files = [f for f in frames_data.keys() if f.endswith('.jpg')]
+        if not image_files:
+            logger.warning(f"No JPG frames found in data for clip '{video_id}', skipping.")
+            return False
+        sorted_frame_names = sorted(image_files, key=lambda f: int(re.search(r'_(\d+)\.jpg$', f).group(1)))
     except (AttributeError, ValueError):
         logger.warning(f"Could not sort frames for clip '{video_id}', skipping.")
-        return False
-
-    if not sorted_frame_names:
-        logger.warning(f"No frames found in data for clip '{video_id}', skipping.")
         return False
 
     width, height = get_image_dimensions(os.path.join(clip_frame_path, sorted_frame_names[0]))
@@ -143,13 +142,11 @@ def process_clip(video_id, frames_data, frame_dir, output_dir, attributes_dict):
 
     xml_content = generate_cvat_xml(frames_data, width, height, attributes_dict, video_id)
 
-    # Save XML to a separate file
-    xml_path = os.path.join(output_dir, f"{video_id}_annotations.xml")
+    xml_path = os.path.join(output_xml_dir, f"{video_id}_annotations.xml")
     with open(xml_path, 'w', encoding='utf-8') as f:
         f.write(xml_content)
 
-    # Create the ZIP file with only frames
-    zip_path = os.path.join(output_dir, f"{video_id}.zip")
+    zip_path = os.path.join(output_zip_dir, f"{video_id}.zip")
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
         for frame_name in sorted_frame_names:
             frame_file_path = os.path.join(clip_frame_path, frame_name)
@@ -162,10 +159,12 @@ def main():
     parser = argparse.ArgumentParser(description="Create separate ZIP and XML files from a dense proposal file.")
     parser.add_argument('--pickle_path', type=str, required=True, help="Path to the dense_proposals.pkl file.")
     parser.add_argument('--frame_dir', type=str, required=True, help="Root directory containing frame subdirectories.")
-    parser.add_argument('--output_dir', type=str, required=True, help="Directory to save the final ZIP and XML files.")
+    parser.add_argument('--output_zip_dir', type=str, required=True, help="Directory to save the final ZIP files.")
+    parser.add_argument('--output_xml_dir', type=str, required=True, help="Directory to save the final XML files.")
     args = parser.parse_args()
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(args.output_zip_dir, exist_ok=True)
+    os.makedirs(args.output_xml_dir, exist_ok=True)
 
     try:
         with open(args.pickle_path, 'rb') as f:
@@ -213,11 +212,13 @@ def main():
 
     success_count = 0
     for video_id, frames_data in tqdm(proposals_data.items(), desc="Processing clips"):
-        if process_clip(video_id, frames_data, args.frame_dir, args.output_dir, attributes_dict):
+        if process_clip(video_id, frames_data, args.frame_dir, args.output_zip_dir, args.output_xml_dir,
+                        attributes_dict):
             success_count += 1
 
-    print(f"\n🎉 Processing complete. Successfully created {success_count} ZIP and XML files in '{args.output_dir}'.")
+    print(f"\n🎉 Processing complete. Successfully created {success_count} ZIP and XML files.")
 
 
 if __name__ == "__main__":
     main()
+

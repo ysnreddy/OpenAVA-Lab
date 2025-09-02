@@ -11,7 +11,7 @@ import psycopg2
 import psycopg2.extras
 
 # Assume cvat_integration.py is in the services directory
-from cvat_integration import CVATClient
+from services.cvat_integration import CVATClient
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -40,6 +40,7 @@ class PostAnnotationService:
             self.conn = None
 
     def get_completed_jobs_from_cvat(self, project_id: int) -> List[Dict]:
+        """Fetches JOBS for a project and filters for 'completed' state."""
         try:
             url = f"{self.cvat_client.host}/api/jobs?project_id={project_id}"
             resp = self.cvat_client._make_authenticated_request("GET", url)
@@ -53,15 +54,22 @@ class PostAnnotationService:
             return []
 
     def export_annotations_from_job(self, job_id: int) -> Optional[Dict]:
+        """ Exports annotations using the modern, asynchronous dataset export method. """
         try:
+            # ✨ FIX: Step 1 - Use the POST endpoint as instructed by the server's error message
             url = f"{self.cvat_client.host}/api/jobs/{job_id}/dataset/export"
-            params = {"format": "CVAT for video 1.1", "save_images": False}
+            params = {
+                # ✨ FIX: Explicitly request the format that preserves tracks
+                "format": "CVAT for video 1.1",
+                "save_images": False
+            }
             resp = self.cvat_client._make_authenticated_request("POST", url, params=params)
 
             if resp.status_code != 202:
                 logger.error(f"Failed to start export for job {job_id}: {resp.status_code} - {resp.text}")
                 return None
 
+            # Step 2: Poll the request queue
             rq_id = resp.json().get("rq_id")
             if not rq_id: return None
 
@@ -81,17 +89,22 @@ class PostAnnotationService:
                     download_resp = self.cvat_client._make_authenticated_request("GET", result_url)
                     download_resp.raise_for_status()
 
+                    # Step 3: Unzip the content in memory and find the annotations file
                     with zipfile.ZipFile(io.BytesIO(download_resp.content)) as z:
                         for filename in z.namelist():
                             if filename.lower().endswith('annotations.xml'):
                                 xml_data = z.read(filename).decode('utf-8')
                                 logger.info(f"✓ Successfully extracted '{filename}' for job {job_id}.")
                                 return {"type": "xml", "data": xml_data}
+
+                    logger.error(f"Could not find an XML file in the downloaded archive for job {job_id}.")
                     return None
+
                 elif status == "failed":
                     logger.error(f"✗ Annotation export failed for job {job_id}: {status_data}")
                     return None
                 else:
+                    logger.info(f"Export for job {job_id} is '{status}', waiting...")
                     time.sleep(3)
         except Exception as e:
             logger.error(f"Failed to export annotations for job {job_id}: {e}")
@@ -111,12 +124,15 @@ class PostAnnotationService:
                 ))
         return annotations
 
-    def process_and_store_job(self, project_id: int, job: Dict) -> None:
+    def process_and_store_job(self, project_id: int, job: Dict, task_name_map: Dict[int, str]) -> None:
         if not self.conn: raise ConnectionError("Database not connected.")
+
         job_id, task_id = job["id"], job["task_id"]
         assignee = (job.get("assignee") or {}).get("username", "N/A")
+        task_name = task_name_map.get(task_id, f"Task {task_id}")
 
-        logger.info(f"Processing completed job {job_id} for task {task_id} by {assignee}...")
+        logger.info(f"Processing completed job {job_id} for task '{task_name}' by {assignee}...")
+
         annotations_data = self.export_annotations_from_job(job_id)
         if not annotations_data or annotations_data.get("type") != "xml":
             logger.warning(f"No valid XML annotations for job {job_id}. Skipping.")
@@ -130,8 +146,11 @@ class PostAnnotationService:
         try:
             with self.conn.cursor() as cur:
                 cur.execute(
-                    "INSERT INTO tasks (task_id, project_id, name, status, assignee, retrieved_at) VALUES (%s, %s, %s, %s, %s, CURRENT_TIMESTAMP) ON CONFLICT (task_id) DO UPDATE SET status = EXCLUDED.status, assignee = EXCLUDED.assignee, retrieved_at = EXCLUDED.retrieved_at;",
-                    (task_id, project_id, f"Task {task_id}", 'completed', assignee)
+                    """
+                    INSERT INTO tasks (task_id, project_id, name, status, assignee, retrieved_at)
+                    VALUES (%s, %s, %s, %s, %s, CURRENT_TIMESTAMP) ON CONFLICT (task_id) DO
+                    UPDATE SET name = EXCLUDED.name, status = EXCLUDED.status, assignee = EXCLUDED.assignee, retrieved_at = EXCLUDED.retrieved_at;
+                    """, (task_id, project_id, task_name, 'completed', assignee)
                 )
                 cur.execute("DELETE FROM annotations WHERE task_id = %s;", (task_id,))
                 insert_query = "INSERT INTO annotations (task_id, track_id, frame, xtl, ytl, xbr, ybr, outside, attributes) VALUES %s;"
@@ -147,19 +166,20 @@ class PostAnnotationService:
     def run_sync(self, project_id: int) -> None:
         if not self.connect_db(): return
         try:
-            # ✨ FIX: Get project details from CVAT to ensure it exists in our DB
             project_details = self.cvat_client.get_project_details(project_id)
             if not project_details:
                 logger.error(f"Could not find project with ID {project_id} in CVAT.")
                 return
 
             with self.conn.cursor() as cur:
-                # ✨ FIX: Insert the project into our DB before processing tasks
                 cur.execute(
                     "INSERT INTO projects (project_id, name) VALUES (%s, %s) ON CONFLICT (project_id) DO NOTHING;",
                     (project_id, project_details['name'])
                 )
                 self.conn.commit()
+
+                all_tasks = self.cvat_client.get_all_tasks_for_project(project_id)
+                task_name_map = {t['id']: t['name'] for t in all_tasks}
 
                 completed_jobs = self.get_completed_jobs_from_cvat(project_id)
                 cur.execute("SELECT task_id FROM tasks WHERE qc_status != 'pending'")
@@ -169,7 +189,7 @@ class PostAnnotationService:
             logger.info(f"Found {len(jobs_to_process)} new completed jobs to process.")
 
             for job in jobs_to_process:
-                self.process_and_store_job(project_id, job)
+                self.process_and_store_job(project_id, job, task_name_map)
         finally:
             self.close_db()
 
@@ -182,38 +202,25 @@ def parse_args():
 
 if __name__ == "__main__":
     DB_PARAMS = {
-        "dbname": "cvat_annotations_db",
-        "user": "admin",
-        "password": "admin",
+        "dbname": "cvat_annotations",
+        "user": "postgres",
+        "password": "mysecretpassword",
         "host": "localhost",
-        "port": "55432",
+        "port": "5432",
     }
     CVAT_HOST = "http://localhost:8080"
     CVAT_USERNAME = "strawhat03"
-    CVAT_PASSWORD = "Test@123"
-
-    # You will need to add a 'get_project_details' method to your CVATClient
-    # Here's how to add it to your services/cvat_integration.py file:
-    """
-    # In services/cvat_integration.py, inside the CVATClient class:
-
-    def get_project_details(self, project_id: int) -> Optional[Dict]:
-        try:
-            url = f"{self.host}/api/projects/{project_id}"
-            resp = self._make_authenticated_request("GET", url)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            logger.error(f"Failed to get project details for ID {project_id}: {e}")
-            return None
-    """
+    CVAT_PASSWORD = "your_admin_password"
 
     args = parse_args()
-    # Make sure your CVATClient class has the get_project_details method
     cvat_client = CVATClient(host=CVAT_HOST, username=CVAT_USERNAME, password=CVAT_PASSWORD)
 
     if cvat_client.authenticated:
-        service = PostAnnotationService(db_params=DB_PARAMS, cvat_client=cvat_client)
-        service.run_sync(project_id=args.project_id)
+        if not hasattr(cvat_client, 'get_all_tasks_for_project'):
+            logger.error(
+                "FATAL: Your cvat_integration.py is outdated. Please add the 'get_all_tasks_for_project' method.")
+        else:
+            service = PostAnnotationService(db_params=DB_PARAMS, cvat_client=cvat_client)
+            service.run_sync(project_id=args.project_id)
     else:
         logger.error("CVAT client authentication failed. Exiting.")

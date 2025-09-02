@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\AVA_dataset_for_Spacio_temporal_action_localization_pipeline\annotations\train.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\final_ava_dataset.csv">
           <value>
             <Attribute>
