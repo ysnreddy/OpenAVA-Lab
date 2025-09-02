@@ -64,7 +64,7 @@ db_params = {
     "user": st.sidebar.text_input("DB User", "admin"),
     "password": st.sidebar.text_input("DB Password", "admin", type="password"),
     "host": st.sidebar.text_input("DB Host", "127.0.0.1"),
-    "port": st.sidebar.text_input("DB Port", "5432")
+    "port": st.sidebar.text_input("DB Port", "55432")
 }
 pool = init_connection_pool(db_params)
 

@@ -11,7 +11,7 @@ import psycopg2
 import psycopg2.extras
 
 # Assume cvat_integration.py is in the services directory
-from services.cvat_integration import CVATClient
+from cvat_integration import CVATClient
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -202,15 +202,15 @@ def parse_args():
 
 if __name__ == "__main__":
     DB_PARAMS = {
-        "dbname": "cvat_annotations",
-        "user": "postgres",
-        "password": "mysecretpassword",
+        "dbname": "cvat_annotations_db",
+        "user": "admin",
+        "password": "admin",
         "host": "localhost",
-        "port": "5432",
+        "port": "55432",
     }
     CVAT_HOST = "http://localhost:8080"
     CVAT_USERNAME = "strawhat03"
-    CVAT_PASSWORD = "your_admin_password"
+    CVAT_PASSWORD = "Test@123"
 
     args = parse_args()
     cvat_client = CVATClient(host=CVAT_HOST, username=CVAT_USERNAME, password=CVAT_PASSWORD)

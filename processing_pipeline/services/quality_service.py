@@ -6,7 +6,7 @@ from collections import defaultdict
 import numpy as np
 
 # ✨ FIX: Import the shared attribute definitions
-from shared_config import ATTRIBUTE_DEFINITIONS
+from services.shared_config import ATTRIBUTE_DEFINITIONS
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
