@@ -156,6 +156,31 @@ class CVATClient:
         except Exception as e:
             logger.error(f"Exception uploading data: {e}")
             return False
+        
+    def get_project_details(self, project_id: int) -> Optional[Dict]:
+        """ Fetches details for a specific project from the CVAT API. """
+        try:
+            url = f"{self.host}/api/projects/{project_id}"
+            resp = self._make_authenticated_request("GET", url)
+            resp.raise_for_status()
+            logger.info(f"✓ Successfully fetched details for project {project_id}")
+            return resp.json()
+        except Exception as e:
+            logger.error(f"Failed to get project details for ID {project_id}: {e}")
+        return None  
+    
+    
+    def get_all_tasks_for_project(self, project_id: int) -> List[Dict]:
+        """ ✨ NEW: Fetches the full details of all tasks within a project. """
+        try:
+            url = f"{self.host}/api/tasks?project_id={project_id}"
+            resp = self._make_authenticated_request("GET", url)
+            resp.raise_for_status()
+            logger.info(f"✓ Successfully fetched all tasks for project {project_id}")
+            return resp.json().get("results", [])
+        except Exception as e:
+            logger.error(f"Failed to get tasks for project ID {project_id}: {e}")
+            return []  
 
     def import_annotations(self, task_id: int, xml_file: str) -> bool:
         try:
