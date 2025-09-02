@@ -10,6 +10,34 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\annotations.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\cvat\cvat\apps\engine\rules\tests\configs\jobs.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\cvat\cvat\apps\engine\rules\tests\configs\projects.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\cvat\cvat\apps\engine\rules\tests\configs\tasks.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\final_ava_dataset.csv">
           <value>
             <Attribute>
