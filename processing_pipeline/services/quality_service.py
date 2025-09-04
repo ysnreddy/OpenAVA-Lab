@@ -1,11 +1,13 @@
 import json
+import os 
+import sys
 import psycopg2
 import logging
 from typing import List, Dict, Any, Tuple
 from collections import defaultdict
 import numpy as np
 
-# ✨ FIX: Import the shared attribute definitions
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from services.shared_config import ATTRIBUTE_DEFINITIONS
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

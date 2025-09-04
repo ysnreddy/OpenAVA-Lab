@@ -10,7 +10,6 @@ import zipfile
 import psycopg2
 import psycopg2.extras
 
-# Assume cvat_integration.py is in the services directory
 from cvat_integration import CVATClient
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
