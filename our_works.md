@@ -39,7 +39,7 @@ The task creation phase involves:
 
 ### PHASE 2: POST-ANNOTATION
 
-![Phase 2 Diagram](flow_images/Phase2.png)
+![Phase 2 Diagram](flow_images/Phase2.pnggit )
 *Post-annotation workflow from completion notification to final dataset generation*
 
 The post-annotation phase includes:

@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\annotations.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\cvat\cvat\apps\engine\rules\tests\configs\jobs.csv">
           <value>
             <Attribute>

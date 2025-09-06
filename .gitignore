@@ -7,3 +7,6 @@ admin_ui/tracking_json
 admin_ui/tracking_video_clip
 admin_ui/uploads
 rf-detr-medium.pth
+admin_ui/final_outputs
+admin_ui/temp_processing
+admin_ui/final_packages
