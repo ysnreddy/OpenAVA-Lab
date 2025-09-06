@@ -1,2 +1,9 @@
 .venv/
 processing_pipeline/data/
+admin_ui/dense_proposals
+admin_ui/temp_zips
+admin_ui/tracking_frames
+admin_ui/tracking_json
+admin_ui/tracking_video_clip
+admin_ui/uploads
+rf-detr-medium.pth

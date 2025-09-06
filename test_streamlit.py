@@ -321,6 +321,7 @@ def safe_json_or_text(resp):
         return resp.json()
     except Exception:
         return resp.text
+    
 
 # ---------------------------
 # 1. Home Page
