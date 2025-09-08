@@ -8,16 +8,13 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
-# ✨ FIX: Import BackgroundTask from starlette
-from starlette.background import BackgroundTask
 
 # Import all your tool scripts
-from tools.rename_resize import process_videos as rename_resize_videos
-from tools.clip_video import clip_video
-from tools.extract_frames import extract_frames
-from tools.person_tracker import PersonTracker
-from tools.create_proposals_from_tracks import generate_proposals_from_tracks
+from admin_ui.tools.rename_resize import process_videos as rename_resize_videos
+from admin_ui.tools.clip_video import clip_video
+from admin_ui.tools.extract_frames import extract_frames
+from admin_ui.tools.person_tracker import PersonTracker
+from admin_ui.tools.create_proposals_from_tracks import generate_proposals_from_tracks
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -95,15 +92,14 @@ def process_in_background(job_id: str, master_zip_path: str):
         final_frames_zip_path = FINAL_OUTPUT_DIR / f"{job_id}_frames.zip"
         shutil.move(proposals_pkl_path, final_proposals_path)
 
+        # ✅ FIX: Directly zip all frames with proper folder structure
         with zipfile.ZipFile(final_frames_zip_path, 'w', zipfile.ZIP_DEFLATED) as master_zip:
-            master_zip.writestr("frames/", "")
             for clip_folder in Path(frames_dir).iterdir():
                 if clip_folder.is_dir():
-                    clip_frames_zip_path = work_dir / f"{clip_folder.name}.zip"
-                    with zipfile.ZipFile(clip_frames_zip_path, 'w', zipfile.ZIP_DEFLATED) as clip_zip:
-                        for frame_file in clip_folder.glob("*.jpg"):
-                            clip_zip.write(frame_file, arcname=frame_file.name)
-                    master_zip.write(clip_frames_zip_path, arcname=f"frames/{clip_frames_zip_path.name}")
+                    for frame_file in clip_folder.glob("*.jpg"):
+                        # Example path inside zip: frames/clip1/clip1_frame_0001.jpg
+                        arcname = f"frames/{clip_folder.name}/{frame_file.name}"
+                        master_zip.write(frame_file, arcname=arcname)
 
         job_status_db[job_id]['status'] = 'completed'
         job_status_db[job_id]['result_paths'] = {
@@ -146,7 +142,8 @@ async def create_processing_job(request: ProcessRequest, background_tasks: Backg
 @app.get("/status/{job_id}")
 async def get_job_status(job_id: str):
     job = job_status_db.get(job_id)
-    if not job: raise HTTPException(status_code=404, detail="Job not found.")
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found.")
     return job
 
 
@@ -160,7 +157,6 @@ async def download_package(job_id: str, file_type: str):
     if not file_path_str or not os.path.exists(file_path_str):
         raise HTTPException(status_code=404, detail="Result file not found.")
 
-    # ✨ FIX: Removed the background task to prevent deleting the file on download.
     return FileResponse(
         file_path_str,
         media_type="application/octet-stream",
@@ -170,6 +166,4 @@ async def download_package(job_id: str, file_type: str):
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
-

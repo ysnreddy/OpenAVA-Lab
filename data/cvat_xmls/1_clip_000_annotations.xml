@@ -5,7 +5,7 @@
     <task>
       <id>0</id>
       <name>1_clip_000</name>
-      <size>15</size>
+      <size>10</size>
       <mode>interpolation</mode>
       <overlap>0</overlap>
       <original_size>
@@ -128,8 +128,8 @@ evening_stroll</values>
       </labels>
     </task>
   </meta>
-  <track id="183" label="person">
-    <box frame="0" xtl="172.6564483642578" ytl="515.4265747070312" xbr="296.9162902832031" ybr="718.5095825195312" outside="0" occluded="0" keyframe="1">
+  <track id="2" label="person">
+    <box frame="0" xtl="1056.222133844568" ytl="23.823237261952585" xbr="1154.9530699986767" ybr="293.3302717258442" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -139,7 +139,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="1" xtl="146.3007639335147" ytl="453.1790080425168" xbr="308.3304946921148" ybr="719.5964118390044" outside="0" occluded="0" keyframe="1">
+    <box frame="1" xtl="1067.3025786515448" ytl="51.16676933451211" xbr="1170.81529197355" ybr="314.7848539940277" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -149,7 +149,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="2" xtl="135.64069096961492" ytl="409.99826263123924" xbr="315.32026765595214" ybr="709.5610575342657" outside="0" occluded="0" keyframe="1">
+    <box frame="2" xtl="1081.765112557525" ytl="59.40422186969076" xbr="1195.275784270388" ybr="330.52498837487417" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -159,7 +159,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="3" xtl="134.60714128906363" ytl="351.7114925476601" xbr="308.8027373428304" ybr="646.741396771311" outside="0" occluded="0" keyframe="1">
+    <box frame="3" xtl="1103.8163942073127" ytl="62.07542921185163" xbr="1218.9415821165433" ybr="351.0851430080104" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -169,7 +169,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="4" xtl="111.58108571601777" ytl="296.25496143419275" xbr="283.6748379497332" ybr="593.2418230313565" outside="0" occluded="0" keyframe="1">
+    <box frame="4" xtl="1133.474627785483" ytl="88.0691222648889" xbr="1246.4478673671636" ybr="381.72008635702446" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -179,7 +179,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="5" xtl="79.54197100737643" ytl="249.55359305224314" xbr="239.82252009682156" ybr="531.9876925050147" outside="0" occluded="0" keyframe="1">
+    <box frame="5" xtl="1172.1523738882672" ytl="98.36234294577386" xbr="1278.5368221814313" ybr="397.72364511087994" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -189,7 +189,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="6" xtl="61.04393767600851" ytl="209.0491981759567" xbr="210.0865312045404" ybr="478.7887666821489" outside="0" occluded="0" keyframe="1">
+    <box frame="6" xtl="1200.6471100119766" ytl="127.43761562197201" xbr="1281.0744292257928" ybr="403.7309879565214" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -199,7 +199,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="7" xtl="50.66117095469038" ytl="165.39443865488042" xbr="190.83774386712594" ybr="426.0847008159616" outside="0" occluded="0" keyframe="1">
+    <box frame="7" xtl="1198.7080442275249" ytl="136.5109684923976" xbr="1281.388222465847" ybr="406.07590379475926" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -209,17 +209,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="8" xtl="38.245963587699336" ytl="129.92908555500034" xbr="173.32170534860796" ybr="387.6987586223862" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="9" xtl="47.60294617611149" ytl="94.68920137938723" xbr="170.896061455997" ybr="334.491657252915" outside="0" occluded="0" keyframe="1">
+    <box frame="8" xtl="1210.5026631143533" ytl="151.56929875728324" xbr="1281.020900839153" ybr="404.6683884475716" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -230,8 +220,8 @@ evening_stroll</values>
       <attribute name="time_context">unknown</attribute>
     </box>
   </track>
-  <track id="184" label="person">
-    <box frame="0" xtl="975.8318481445312" ytl="108.84408569335938" xbr="1077.75634765625" ybr="230.6356201171875" outside="0" occluded="0" keyframe="1">
+  <track id="3" label="person">
+    <box frame="0" xtl="758.5398265489888" ytl="0.4854485758540221" xbr="831.0691554618166" ybr="199.9310570874922" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -241,7 +231,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="1" xtl="948.0145664998945" ytl="92.87207750052458" xbr="1062.6475786891228" ybr="230.73274357062724" outside="0" occluded="0" keyframe="1">
+    <box frame="1" xtl="772.3305961749035" ytl="0.4306212336041142" xbr="839.748822470502" ybr="136.17226841916843" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -251,7 +241,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="2" xtl="952.6403001859029" ytl="92.22983598182596" xbr="1064.3678824713077" ybr="227.7010878265815" outside="0" occluded="0" keyframe="1">
+    <box frame="2" xtl="798.4260563546986" ytl="0.17992022403071672" xbr="867.972318998929" ybr="124.14013888662703" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -261,7 +251,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="3" xtl="959.8149483796377" ytl="95.11028431728165" xbr="1069.0369477068518" ybr="228.46836800250247" outside="0" occluded="0" keyframe="1">
+    <box frame="3" xtl="808.3556161474417" ytl="0.2364852563913189" xbr="878.6842573425636" ybr="123.53834844121901" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -271,7 +261,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="4" xtl="954.515420131022" ytl="91.36314893046872" xbr="1061.6704520658425" ybr="224.17617511574232" outside="0" occluded="0" keyframe="1">
+    <box frame="4" xtl="817.3927903260261" ytl="8.325520532504427" xbr="900.2871959815626" ybr="128.3073029933326" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -281,7 +271,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="5" xtl="975.6683394752104" ytl="110.57319843239804" xbr="1071.1537550282167" ybr="227.61863677336527" outside="0" occluded="0" keyframe="1">
+    <box frame="5" xtl="847.732978079509" ytl="20.0287849208855" xbr="932.1695265019363" ybr="203.74150243590563" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -291,7 +281,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="6" xtl="957.1578817370776" ytl="100.49335778303376" xbr="1059.6141562432838" ybr="227.62919844580873" outside="0" occluded="0" keyframe="1">
+    <box frame="6" xtl="872.1468882983776" ytl="23.85915735079965" xbr="949.8191465421877" ybr="267.0752210821873" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -301,7 +291,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="7" xtl="967.413737186927" ytl="103.79825035865701" xbr="1068.0962555546225" ybr="228.09454856147636" outside="0" occluded="0" keyframe="1">
+    <box frame="7" xtl="893.6201202827003" ytl="39.45059596097673" xbr="986.4589265401444" ybr="299.34458222674505" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -311,7 +301,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="8" xtl="958.4043087270996" ytl="98.7793524593687" xbr="1062.9308420754996" ybr="228.78315129027072" outside="0" occluded="0" keyframe="1">
+    <box frame="8" xtl="903.7313197859075" ytl="51.77963341541127" xbr="1011.4347810431236" ybr="316.09297896289956" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -321,57 +311,7 @@ evening_stroll</values>
       <attribute name="clothing_style">unknown</attribute>
       <attribute name="time_context">unknown</attribute>
     </box>
-    <box frame="9" xtl="965.6855063555494" ytl="103.07121081375345" xbr="1068.3350649560489" ybr="230.5022695771546" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="10" xtl="955.1184739051108" ytl="96.56247689722338" xbr="1059.6365325186255" ybr="228.32768482402244" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="11" xtl="968.8106493686408" ytl="106.54012219623782" xbr="1067.790422693757" ybr="229.5292904079592" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="12" xtl="954.8810410681559" ytl="95.4442452888975" xbr="1057.1111005425262" ybr="224.66376008468654" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="13" xtl="964.8474343555207" ytl="100.36414634866264" xbr="1064.925381155274" ybr="226.80344735924047" outside="0" occluded="0" keyframe="1">
-      <attribute name="walking_behavior">unknown</attribute>
-      <attribute name="phone_usage">unknown</attribute>
-      <attribute name="social_interaction">unknown</attribute>
-      <attribute name="carrying_items">unknown</attribute>
-      <attribute name="street_behavior">unknown</attribute>
-      <attribute name="posture_gesture">unknown</attribute>
-      <attribute name="clothing_style">unknown</attribute>
-      <attribute name="time_context">unknown</attribute>
-    </box>
-    <box frame="14" xtl="955.8537236711297" ytl="92.79042675622476" xbr="1059.5609108894487" ybr="226.4011524005383" outside="0" occluded="0" keyframe="1">
+    <box frame="9" xtl="923.0006301929955" ytl="62.04807215350925" xbr="1032.8701692771829" ybr="331.1059705757789" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>
@@ -382,8 +322,68 @@ evening_stroll</values>
       <attribute name="time_context">unknown</attribute>
     </box>
   </track>
-  <track id="203" label="person">
-    <box frame="14" xtl="199.01254549601327" ytl="-1.5473075866699162" xbr="306.1273684444164" ybr="118.22200012207031" outside="0" occluded="0" keyframe="1">
+  <track id="4" label="person">
+    <box frame="0" xtl="857.7084371681136" ytl="0.21990682794921668" xbr="957.4167683665372" ybr="153.81675523706562" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="1" xtl="875.5731554198173" ytl="0.18102177480656678" xbr="958.1586717850064" ybr="169.09263583123166" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="2" xtl="897.7204494324939" ytl="26.592605493459843" xbr="966.2938378994764" ybr="186.14094561887563" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="3" xtl="915.1219930951879" ytl="2.210302300690927" xbr="994.0107676566106" ybr="200.35401201138833" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="4" xtl="942.8724562541355" ytl="0.3021350981043156" xbr="1028.1690955960412" ybr="216.20441116425116" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="5" xtl="945.4046834373496" ytl="0.5703665592497345" xbr="1042.7243730086595" ybr="223.67924823347693" outside="0" occluded="0" keyframe="1">
+      <attribute name="walking_behavior">unknown</attribute>
+      <attribute name="phone_usage">unknown</attribute>
+      <attribute name="social_interaction">unknown</attribute>
+      <attribute name="carrying_items">unknown</attribute>
+      <attribute name="street_behavior">unknown</attribute>
+      <attribute name="posture_gesture">unknown</attribute>
+      <attribute name="clothing_style">unknown</attribute>
+      <attribute name="time_context">unknown</attribute>
+    </box>
+    <box frame="6" xtl="932.1209984946603" ytl="0.12084295819269641" xbr="1018.1888915894084" ybr="229.14448955935453" outside="0" occluded="0" keyframe="1">
       <attribute name="walking_behavior">unknown</attribute>
       <attribute name="phone_usage">unknown</attribute>
       <attribute name="social_interaction">unknown</attribute>

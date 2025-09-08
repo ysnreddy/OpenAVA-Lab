@@ -32,7 +32,7 @@ def cvat_webhook():
             # This ensures the webhook returns a response quickly
             try:
                 subprocess.Popen(
-                                ["python", "services/post_annotation_service.py",
+                                ["python", "processing_pipeline/services/post_annotation_service.py",
                                 "--project-id", str(project_id),
                                 "--task-id", str(payload["job"]["task_id"]),
                                 "--assignee", payload["job"].get("assignee", {}).get("username", "N/A")],
