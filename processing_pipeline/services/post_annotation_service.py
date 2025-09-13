@@ -1,3 +1,4 @@
+
 import argparse
 import logging
 import json
@@ -6,11 +7,16 @@ from typing import Dict, List, Optional
 import time
 import io
 import zipfile
+from dateutil import parser  # for timestamp parsing
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))  # ← add project root
 
 import psycopg2
 import psycopg2.extras
 
 from cvat_integration import CVATClient
+from metrics_logging.metrics_logger import log_metric  # <-- added
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -55,10 +61,8 @@ class PostAnnotationService:
     def export_annotations_from_job(self, job_id: int) -> Optional[Dict]:
         """ Exports annotations using the modern, asynchronous dataset export method. """
         try:
-            # ✨ FIX: Step 1 - Use the POST endpoint as instructed by the server's error message
             url = f"{self.cvat_client.host}/api/jobs/{job_id}/dataset/export"
             params = {
-                # ✨ FIX: Explicitly request the format that preserves tracks
                 "format": "CVAT for video 1.1",
                 "save_images": False
             }
@@ -68,7 +72,6 @@ class PostAnnotationService:
                 logger.error(f"Failed to start export for job {job_id}: {resp.status_code} - {resp.text}")
                 return None
 
-            # Step 2: Poll the request queue
             rq_id = resp.json().get("rq_id")
             if not rq_id: return None
 
@@ -88,7 +91,6 @@ class PostAnnotationService:
                     download_resp = self.cvat_client._make_authenticated_request("GET", result_url)
                     download_resp.raise_for_status()
 
-                    # Step 3: Unzip the content in memory and find the annotations file
                     with zipfile.ZipFile(io.BytesIO(download_resp.content)) as z:
                         for filename in z.namelist():
                             if filename.lower().endswith('annotations.xml'):
@@ -124,7 +126,8 @@ class PostAnnotationService:
         return annotations
 
     def process_and_store_job(self, project_id: int, job: Dict, task_name_map: Dict[int, str]) -> None:
-        if not self.conn: raise ConnectionError("Database not connected.")
+        if not self.conn: 
+            raise ConnectionError("Database not connected.")
 
         job_id, task_id = job["id"], job["task_id"]
         assignee = (job.get("assignee") or {}).get("username", "N/A")
@@ -142,25 +145,65 @@ class PostAnnotationService:
             logger.warning(f"No annotations could be parsed for job {job_id}. Skipping.")
             return
 
+        # Parse CVAT timestamps
+        start_ts = parser.parse(job["created_date"]).timestamp()
+        end_ts = parser.parse(job["updated_date"]).timestamp()
+        duration_seconds = end_ts - start_ts
+
         try:
             with self.conn.cursor() as cur:
+                # Store task info
                 cur.execute(
                     """
                     INSERT INTO tasks (task_id, project_id, name, status, assignee, retrieved_at)
                     VALUES (%s, %s, %s, %s, %s, CURRENT_TIMESTAMP) ON CONFLICT (task_id) DO
                     UPDATE SET name = EXCLUDED.name, status = EXCLUDED.status, assignee = EXCLUDED.assignee, retrieved_at = EXCLUDED.retrieved_at;
-                    """, (task_id, project_id, task_name, 'completed', assignee)
+                    """,
+                    (task_id, project_id, task_name, 'completed', assignee)
                 )
+
+                # Store annotations
                 cur.execute("DELETE FROM annotations WHERE task_id = %s;", (task_id,))
                 insert_query = "INSERT INTO annotations (task_id, track_id, frame, xtl, ytl, xbr, ybr, outside, attributes) VALUES %s;"
                 data_to_insert = [(task_id,) + ann for ann in annotations]
                 psycopg2.extras.execute_values(cur, insert_query, data_to_insert,
-                                               template="(%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+                                            template="(%s, %s, %s, %s, %s, %s, %s, %s, %s)")
                 logger.info(f"✓ Stored {cur.rowcount} annotations for task {task_id}.")
+
             self.conn.commit()
+
+            # ---------------- Metrics Logging ----------------
+            # Task ready (queue wait)
+            queue_wait_seconds = job.get("queue_wait_seconds", 0)  # optional if available
+            log_metric("task_ready", project_id=project_id, task_id=task_id, annotator=assignee,
+                    extra={"queue_wait_seconds": queue_wait_seconds, "timestamp": start_ts})
+
+            # Annotation start
+            log_metric("annotation_start", project_id=project_id, task_id=task_id, annotator=assignee,
+                    extra={"timestamp": start_ts})
+
+            # Annotation end
+            log_metric("annotation_end", project_id=project_id, task_id=task_id, annotator=assignee,
+                    extra={"timestamp": end_ts, "duration_seconds": duration_seconds})
+
+            # Task completed
+            clips_per_hour = len(annotations) / (duration_seconds / 3600) if duration_seconds > 0 else 0
+            ops_overhead = duration_seconds / max(len(annotations), 1)  # time per annotation
+            log_metric("task_completed", project_id=project_id, task_id=task_id, annotator=assignee,
+                    extra={
+                        "annotation_count": len(annotations),
+                        "duration_seconds": duration_seconds,
+                        "clips_per_hour": clips_per_hour,
+                        "ops_overhead": ops_overhead,
+                        "timestamp": end_ts
+                    })
+
+            logger.info(f"✓ Logged all metrics for job {job_id} (task {task_id}).")
+
         except Exception as e:
             logger.error(f"Database transaction failed for task {task_id}: {e}")
             self.conn.rollback()
+
 
     def run_sync(self, project_id: int) -> None:
         if not self.connect_db(): return

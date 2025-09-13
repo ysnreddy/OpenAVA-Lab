@@ -4,7 +4,7 @@ import psycopg2
 import psycopg2.pool
 from contextlib import contextmanager
 from fastapi import HTTPException
-from config import settings
+from .config import settings
 
 # Create a connection pool
 try:

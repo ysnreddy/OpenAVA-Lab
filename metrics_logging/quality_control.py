@@ -1,18 +1,19 @@
-# /ava_unified_platform/routers/quality_control.py
-
+# metrics_logging/quality_control.py
 import os
+import time
 import pandas as pd
 from typing import List
 from fastapi import APIRouter, HTTPException, Body
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
-import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from Deployment_setup.database import get_db_connection, get_db_params
 from processing_pipeline.services.quality_service import QualityService
 from processing_pipeline.services.dataset_generator import DatasetGenerator
+from .metrics_logger import log_metric
 from Deployment_setup.config import FRAME_DIR_PATH
 
 router = APIRouter(
@@ -27,6 +28,7 @@ class QCStatusUpdateRequest(BaseModel):
 class DatasetRequest(BaseModel):
     output_filename: str = Field("final_ava_dataset.csv", description="The name of the output CSV file.")
     frames_root_directory: str = Field(FRAME_DIR_PATH, description="Absolute path to the root directory containing frame images.")
+    project_id: int = Field(-1, description="Optional project id to attach to export log.")
 
 @router.get("/projects", summary="List all projects from the database")
 def list_projects():
@@ -49,10 +51,6 @@ def get_project_tasks(project_id: int):
 
 @router.post("/run-iaa-check", summary="Run Inter-Annotator Agreement check")
 def run_iaa_check(task_pair: List[int] = Body(..., example=[101, 102], description="A list containing exactly two task IDs to compare.")):
-    """
-    Performs a quality check by comparing two annotations for the same clip.
-    Calculates Average IoU and Cohen's Kappa scores for attributes.
-    """
     if len(task_pair) != 2:
         raise HTTPException(status_code=400, detail="Please provide exactly two task IDs for comparison.")
         
@@ -66,7 +64,6 @@ def run_iaa_check(task_pair: List[int] = Body(..., example=[101, 102], descripti
 
 @router.post("/update-task-status", summary="Approve or reject tasks")
 def update_task_qc_status(request: QCStatusUpdateRequest):
-    """Updates the 'qc_status' field for one or more tasks."""
     if request.new_status not in ["approved", "rejected"]:
         raise HTTPException(status_code=400, detail="Status must be 'approved' or 'rejected'.")
     
@@ -86,6 +83,7 @@ def generate_final_dataset(request: DatasetRequest):
     """
     # Save in current working directory (Windows-friendly)
     output_path = os.path.join(os.getcwd(), request.output_filename)
+    start_time = time.time()
     
     try:
         generator = DatasetGenerator(get_db_params(), request.frames_root_directory)
@@ -93,8 +91,16 @@ def generate_final_dataset(request: DatasetRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Dataset generation failed: {e}")
 
+    duration = time.time() - start_time
+
     if not os.path.exists(output_path):
         raise HTTPException(status_code=404, detail="Output file was not generated.")
+
+    # log export_time + time_on_export (attach project_id if provided)
+    log_metric("export_time", project_id=request.project_id or -1, extra={
+        "output_file": request.output_filename,
+        "time_on_export": duration
+    })
 
     return FileResponse(
         path=output_path,

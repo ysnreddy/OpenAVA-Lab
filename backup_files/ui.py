@@ -8,7 +8,7 @@ from collections import defaultdict
 # ---------------------------
 # Base URL of your FastAPI backend
 # ---------------------------
-FASTAPI_URL = os.getenv("FASTAPI_URL", "http://fastapi:8000")
+FASTAPI_URL = os.getenv("FASTAPI_URL", "http://localhost:8000")
 
 # ---------------------------
 # Streamlit Page Config
@@ -54,28 +54,28 @@ if page == "🏁 Home":
 # ---------------------------
 # 2. Pre-Annotation Tool
 # ---------------------------
-elif page == "📌 Pre-Annotation Tool":
-    st.title("📌 Pre-Annotation Tool")
-    st.markdown("Upload your `dense_proposals.pkl` and `frames.zip` to generate CVAT-ready packages.")
+# elif page == "📌 Pre-Annotation Tool":
+#     st.title("📌 Pre-Annotation Tool")
+#     st.markdown("Upload your `dense_proposals.pkl` and `frames.zip` to generate CVAT-ready packages.")
 
-    pickle_file = st.file_uploader("Upload dense_proposals.pkl", type=["pkl"])
-    frames_zip = st.file_uploader("Upload frames.zip", type=["zip"])
+#     pickle_file = st.file_uploader("Upload dense_proposals.pkl", type=["pkl"])
+#     frames_zip = st.file_uploader("Upload frames.zip", type=["zip"])
 
-    if st.button("🚀 Run Pre-Annotation"):
-        if pickle_file and frames_zip:
-            files = {
-                "pickle_file": ("dense_proposals.pkl", pickle_file.getvalue(), "application/octet-stream"),
-                "frames_zip": (frames_zip.name, frames_zip.getvalue(), "application/zip"),
-            }
-            with st.spinner("Processing... please wait."):
-                resp = requests.post(f"{FASTAPI_URL}/pre-annotation/process-clips", files=files)
-            if resp.status_code == 200:
-                st.success("✅ CVAT package generated successfully!")
-                st.download_button("⬇️ Download CVAT Package", data=resp.content, file_name="cvat_packages.zip")
-            else:
-                st.error(f"❌ Error: {safe_json_or_text(resp)}")
-        else:
-            st.warning("⚠️ Please upload both files.")
+#     if st.button("🚀 Run Pre-Annotation"):
+#         if pickle_file and frames_zip:
+#             files = {
+#                 "pickle_file": ("dense_proposals.pkl", pickle_file.getvalue(), "application/octet-stream"),
+#                 "frames_zip": (frames_zip.name, frames_zip.getvalue(), "application/zip"),
+#             }
+#             with st.spinner("Processing... please wait."):
+#                 resp = requests.post(f"{FASTAPI_URL}/pre-annotation/process-clips", files=files)
+#             if resp.status_code == 200:
+#                 st.success("✅ CVAT package generated successfully!")
+#                 st.download_button("⬇️ Download CVAT Package", data=resp.content, file_name="cvat_packages.zip")
+#             else:
+#                 st.error(f"❌ Error: {safe_json_or_text(resp)}")
+#         else:
+#             st.warning("⚠️ Please upload both files.")
 
 # ---------------------------
 # 3. Task Creator
