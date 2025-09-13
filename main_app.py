@@ -21,7 +21,7 @@ st.set_page_config(page_title="AVA Unified Platform", layout="wide")
 st.sidebar.title("📊 AVA Unified Platform")
 page = st.sidebar.radio(
     "Navigate",
-    ["🏁 Home", "📌 Pre-Annotation Tool", "📝 Task Creator", "✅ Quality Control"],
+    ["🏁 Home",  "📝 Task Creator", "✅ Quality Control"],
 )
 
 # ---------------------------
@@ -48,7 +48,6 @@ if page == "🏁 Home":
         Welcome to the **AVA Unified Platform Dashboard** 🎬  
 
         This dashboard allows you to:
-        - 📌 Run Pre-Annotation on clips  
         - 📝 Create CVAT Projects & Tasks  
         - ✅ Perform Quality Control & Generate Dataset  
 
@@ -58,45 +57,45 @@ if page == "🏁 Home":
 # ---------------------------
 # 2. Pre-Annotation Tool
 # ---------------------------
-elif page == "📌 Pre-Annotation Tool":
-    st.title("📌 Pre-Annotation Tool")
-    st.markdown("Upload your `dense_proposals.pkl` and `frames.zip` to generate CVAT-ready packages.")
+# elif page == "📌 Pre-Annotation Tool":
+#     st.title("📌 Pre-Annotation Tool")
+#     st.markdown("Upload your `dense_proposals.pkl` and `frames.zip` to generate CVAT-ready packages.")
 
-    pickle_file = st.file_uploader("Upload dense_proposals.pkl", type=["pkl"])
-    frames_zip = st.file_uploader("Upload frames.zip", type=["zip"])
+#     pickle_file = st.file_uploader("Upload dense_proposals.pkl", type=["pkl"])
+#     frames_zip = st.file_uploader("Upload frames.zip", type=["zip"])
 
-    if st.button("🚀 Run Pre-Annotation"):
-        if pickle_file and frames_zip:
-            with st.spinner("Getting presigned URLs..."):
-                presign_resp = requests.post(
-                    f"{FASTAPI_URL}/pre-annotation/get-upload-urls",
-                    json={"files": ["dense_proposals.pkl", frames_zip.name]},
-                )
-                if presign_resp.status_code != 200:
-                    st.error(f"❌ Error getting presigned URLs: {safe_json_or_text(presign_resp)}")
-                    st.stop()
-                urls = presign_resp.json()
+#     if st.button("🚀 Run Pre-Annotation"):
+#         if pickle_file and frames_zip:
+#             with st.spinner("Getting presigned URLs..."):
+#                 presign_resp = requests.post(
+#                     f"{FASTAPI_URL}/pre-annotation/get-upload-urls",
+#                     json={"files": ["dense_proposals.pkl", frames_zip.name]},
+#                 )
+#                 if presign_resp.status_code != 200:
+#                     st.error(f"❌ Error getting presigned URLs: {safe_json_or_text(presign_resp)}")
+#                     st.stop()
+#                 urls = presign_resp.json()
 
-            with st.spinner("Uploading files to S3..."):
-                ok1 = upload_to_s3_via_presigned(BytesIO(pickle_file.read()), urls["dense_proposals.pkl"])
-                ok2 = upload_to_s3_via_presigned(BytesIO(frames_zip.read()), urls[frames_zip.name])
-                if not (ok1 and ok2):
-                    st.error("❌ Failed to upload files to S3.")
-                    st.stop()
+#             with st.spinner("Uploading files to S3..."):
+#                 ok1 = upload_to_s3_via_presigned(BytesIO(pickle_file.read()), urls["dense_proposals.pkl"])
+#                 ok2 = upload_to_s3_via_presigned(BytesIO(frames_zip.read()), urls[frames_zip.name])
+#                 if not (ok1 and ok2):
+#                     st.error("❌ Failed to upload files to S3.")
+#                     st.stop()
 
-            with st.spinner("Processing on backend..."):
-                resp = requests.post(f"{FASTAPI_URL}/pre-annotation/process-clips", json={
-                    "pickle_file": "dense_proposals.pkl",
-                    "frames_zip": frames_zip.name,
-                })
-            if resp.status_code == 200:
-                download_url = resp.json().get("download_url")
-                st.success("✅ CVAT package generated successfully!")
-                st.markdown(f"[⬇️ Download CVAT Package]({download_url})")
-            else:
-                st.error(f"❌ Error: {safe_json_or_text(resp)}")
-        else:
-            st.warning("⚠️ Please upload both files.")
+#             with st.spinner("Processing on backend..."):
+#                 resp = requests.post(f"{FASTAPI_URL}/pre-annotation/process-clips", json={
+#                     "pickle_file": "dense_proposals.pkl",
+#                     "frames_zip": frames_zip.name,
+#                 })
+#             if resp.status_code == 200:
+#                 download_url = resp.json().get("download_url")
+#                 st.success("✅ CVAT package generated successfully!")
+#                 st.markdown(f"[⬇️ Download CVAT Package]({download_url})")
+#             else:
+#                 st.error(f"❌ Error: {safe_json_or_text(resp)}")
+#         else:
+#             st.warning("⚠️ Please upload both files.")
 
 # ---------------------------
 # 3. Task Creator
