@@ -2,9 +2,6 @@
 
 A unified pipeline for creating high-quality, multi-annotator spatio-temporal action localization datasets in AVA format.
 
-## Project Status
-✅ Prototype Complete
-
 ## Overview
 
 This system implements a hybrid-cloud pipeline that combines powerful local computation for video pre-processing with scalable cloud-based annotation and quality control. Transform raw video files into model-ready training datasets through an automated workflow.
@@ -279,16 +276,16 @@ For issues and contributions:
 
 ## License
 
-[Specify your license here]
+Creative Commons Attribution-NonCommercial (CC BY-NC)
 
 ## Citation
 
 If you use this pipeline in your research, please cite:
 ```bibtex
-@software{ava_pipeline,
-  title={AVA-Style Dataset Creation Pipeline},
-  author={[Your Name/Organization]},
-  year={2024},
+@software{OpenAVA Lab,
+  title={OpenAVA Lab: A Scalable AVA-Style Video Annotation Platform with Multi-Annotator Orchestration and Temporal QC},
+  author={[Suryanarayana Reddy Yarrabothula/Indian Instistute of Technology, Bhilai],[Manmohan V/National Institute of Technology, Patna],[Anurag Jain/ITM University],[Gagan Raj Gupta/Indian Instistute of Technology, Bhilai]},
+  year={2025},
   url={[Repository URL]}
 }
 ```
