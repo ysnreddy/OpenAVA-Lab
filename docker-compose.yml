@@ -13,7 +13,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./processing_pipeline:/app/processing_pipeline
-      - ./Deployment_setup:/app/Deployment_setup
+      - ./final_Depolyement_setup:/app/final_Depolyement_setup
 
   streamlit:
     build:
@@ -28,5 +28,5 @@ services:
       - FASTAPI_URL=http://fastapi:8000
     volumes:
       - ./processing_pipeline:/app/processing_pipeline
-      - ./Deployment_setup:/app/Deployment_setup
-      - ./main_app.py:/app/main_app.py
+      - ./final_Depolyement_setup:/app/final_Depolyement_setup
+      - ./frontend.py:/app/frontend.py

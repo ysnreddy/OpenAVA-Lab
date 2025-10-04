@@ -2,16 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy code
-COPY Deployment_setup /app/Deployment_setup
+COPY final_Depolyement_setup /app/final_Depolyement_setup
 COPY processing_pipeline /app/processing_pipeline
-COPY main_app.py /app/main_app.py
-COPY .env /app/.env  
+COPY frontend.py /app/frontend.py
+COPY .env /app/.env
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "main_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "final_Depolyement_setup/frontend.py", "--server.port=8501", "--server.address=0.0.0.0"]

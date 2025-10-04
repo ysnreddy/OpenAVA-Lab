@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy code
-COPY Deployment_setup /app/Deployment_setup
+COPY final_Depolyement_setup /app/final_Depolyement_setup
 COPY processing_pipeline /app/processing_pipeline
 COPY .env /app/.env
 COPY files.sh /app/files.sh
@@ -22,4 +22,4 @@ RUN chmod +x /app/files.sh
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "/app/files.sh && uvicorn Deployment_setup.main:app --host 0.0.0.0 --port 8000 --reload"]
+CMD ["bash", "-c", "/app/files.sh && uvicorn final_Depolyement_setup.main:app --host 0.0.0.0 --port 8000 --reload"]

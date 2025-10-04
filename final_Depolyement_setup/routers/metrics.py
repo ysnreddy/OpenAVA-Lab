@@ -1,8 +1,15 @@
-# metrics_logging/metrics.py
+# routers/metrics.py
+
 import os
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Request, HTTPException
 from typing import Optional, Dict
-from .metrics_logger import read_all, read_by_project
+import boto3 # Used for clarity, actual client comes from request.app.state
+import logging
+
+# Assuming the logger and utility imports are correct relative to the new structure
+from .metrics_logger import read_all, read_by_project, sync_metrics_to_s3 # NEW import
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/metrics",
@@ -11,11 +18,16 @@ router = APIRouter(
 
 @router.get("/summary", summary="Compute metrics summary from logs")
 def metrics_summary(project_id: Optional[int] = Query(None)):
+    """
+    Computes and returns a summary of operational and annotation metrics.
+    """
     # 🔹 Load records filtered by project if project_id is provided
     if project_id is not None:
         records = read_by_project(project_id)
+        logger.info(f"Loaded {len(records)} records for project {project_id}.")
     else:
         records = read_all()
+        logger.info(f"Loaded {len(records)} total records.")
 
     # helpers
     by_event = {}
@@ -139,8 +151,8 @@ def metrics_summary(project_id: Optional[int] = Query(None)):
 
     for task_id, ready_ts in earliest_task_ready_per_task.items():
         start_ts = earliest_annotation_start_per_task.get(task_id)
-        if start_ts:
-            queue_waits_summary[task_id] = start_ts - ready_ts
+        if start_ts and ready_ts is not None:
+             queue_waits_summary[task_id] = start_ts - ready_ts
 
     # --------------------
     # Ops overhead per project
@@ -197,4 +209,30 @@ def metrics_summary(project_id: Optional[int] = Query(None)):
         "clips_per_annotator_hour": clips_per_annotator_hour,
         "queue_waits_summary": queue_waits_summary,
         "ops_overhead_per_project": ops_overhead_per_project
+    }
+
+# --------------------
+# NEW S3 SYNC ENDPOINT
+# --------------------
+@router.post("/sync-s3", summary="Manually sync local metrics files to S3")
+def sync_metrics_to_s3_endpoint(request: Request):
+    """
+    Triggers the synchronization of all local metrics JSONL files to S3 for durable storage.
+    Requires S3 client and bucket name to be configured in app state.
+    """
+    try:
+        s3_client = request.app.state.s3_client
+        s3_bucket = request.app.state.s3_bucket
+    except AttributeError:
+        raise HTTPException(status_code=500, detail="S3 client is not configured in application state.")
+    
+    synced_files = sync_metrics_to_s3(s3_client, s3_bucket)
+
+    if not synced_files:
+        return {"message": "No new metric files found to sync or S3 sync failed.", "files_synced": 0}
+
+    return {
+        "message": f"Successfully synced {len(synced_files)} metric files to S3.",
+        "files_synced": len(synced_files),
+        "keys": synced_files
     }

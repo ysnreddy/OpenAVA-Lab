@@ -39,7 +39,7 @@ def generate_proposals_from_tracks(tracking_dir, output_path):
             bbox = det.get('bbox')
             track_id = det.get('track_id')
 
-            if not all([video_id, frame_name, bbox, track_id is not None]):
+            if not (video_id and frame_name and bbox is not None and track_id is not None):
                 continue
             score = 1.0
             proposal_entry = [bbox[0], bbox[1], bbox[2], bbox[3], score, track_id]

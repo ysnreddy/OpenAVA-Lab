@@ -10,7 +10,7 @@ from starlette.background import BackgroundTask
 import shutil
 
 # Correctly import the function from your processing script
-from tools.proposals_to_cvat import process_clip
+from processing_pipeline.services.proposals_to_cvat import process_clip
 
 app = FastAPI(title="CVAT Pre-Annotation Service")
 

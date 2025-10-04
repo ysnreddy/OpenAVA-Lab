@@ -3,8 +3,7 @@ import time
 from pathlib import Path
 import json
 from typing import Optional, Dict, Any, List, Set, Tuple
-
-# ---------------- Logging Setup ----------------
+import os
 logger = logging.getLogger("metrics")
 logger.setLevel(logging.INFO)
 if not logger.hasHandlers():
@@ -19,7 +18,6 @@ METRICS_DIR = Path("data/metrics")
 METRICS_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------- Track Seen Events ----------------
-# Avoid duplicates within 5 seconds
 _seen_events: Set[Tuple[int, Optional[int], str, Optional[str], str, int]] = set()
 
 # ---------------- Utilities ----------------
@@ -31,7 +29,37 @@ def _get_project_file(project_id: int) -> Path:
     """Return the per-project metrics JSONL file path."""
     return METRICS_DIR / f"{project_id}_metrics.jsonl"
 
-# ---------------- Log Metric ----------------
+# ---------------- S3 Archival Utility ----------------
+def sync_metrics_to_s3(s3_client: Any, bucket_name: str, s3_prefix: str = "metrics_archive/") -> List[str]:
+    """
+    Archives all local JSONL metric files to S3.
+    Requires a configured boto3 S3 client and bucket name.
+    """
+    if not s3_client or not bucket_name:
+        logger.error("Cannot sync metrics: S3 client or bucket name is missing.")
+        return []
+
+    synced_files = []
+    for metrics_file in METRICS_DIR.glob("*_metrics.jsonl"):
+        local_path = str(metrics_file)
+        s3_key = f"{s3_prefix}{metrics_file.name}"
+        
+        try:
+            s3_client.upload_file(local_path, bucket_name, s3_key)
+            
+            # Optional: Delete the local file after successful upload to prevent re-uploading,
+            # or rename it to indicate it's been archived (e.g., .archived).
+            # We'll just log it for now, assuming the aggregation still needs it.
+            # If aggregation is slow, consider moving the read logic to S3.
+            
+            synced_files.append(s3_key)
+            logger.info(f"💾 Synced local metric file {metrics_file.name} to S3: {s3_key}")
+            
+        except Exception as e:
+            logger.exception(f"Failed to upload {metrics_file.name} to S3: {e}")
+
+    return synced_files
+
 def log_metric(
     event_type: str,
     project_id: int = -1,
@@ -39,24 +67,17 @@ def log_metric(
     annotator: Optional[str] = None,
     extra: Optional[Dict[str, Any]] = None
 ) -> None:
-    """
-    Log a metric event.
-    'extra' can include:
-      - files (for ingest_time)
-      - time_on_task_creation (for task_ready)
-      - output_file, time_on_export (for export_time)
-    """
     extra = extra or {}
     extra_str = json.dumps(extra, sort_keys=True)
 
-    # 5-second deduplication bucket
     time_bucket = int(_now() // 5)
-    key = (project_id, task_id, event_type, annotator, extra_str, time_bucket)
+    key = (project_id, task_id, event_type, annotator, hash(extra_str), time_bucket) 
     if key in _seen_events:
         logger.info(f"[SKIP] Duplicate metric: {key}")
         return
     _seen_events.add(key)
 
+    
     record = {
         "timestamp": _now(),
         "event_type": event_type,
@@ -74,7 +95,6 @@ def log_metric(
     except Exception as e:
         logger.exception("Failed to write metric record: %s", e)
 
-# ---------------- Read Metrics ----------------
 def read_by_project(project_id: int) -> List[Dict[str, Any]]:
     """Read all metric records for a specific project."""
     metrics_file = _get_project_file(project_id)
@@ -112,17 +132,3 @@ def read_all() -> List[Dict[str, Any]]:
         except Exception as e:
             logger.exception("Failed to read metrics file: %s", e)
     return records
-
-# ---------------- Test Script ----------------
-if __name__ == "__main__":
-    # Test logging ingest_time
-    log_metric("ingest_time", project_id=1, extra={"files": {"zips": ["clip1.zip"]}})
-    # Test logging task_ready with time_on_task_creation
-    log_metric("task_ready", project_id=1, task_id=101, annotator="user1", extra={"time_on_task_creation": 3.5})
-    # Test logging export_time with time_on_export
-    log_metric("export_time", project_id=1, extra={"output_file": "clip1.mp4", "time_on_export": 2.0})
-
-    all_metrics = read_all()
-    print(f"All metrics ({len(all_metrics)} records):")
-    for m in all_metrics:
-        print(m)

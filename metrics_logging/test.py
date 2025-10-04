@@ -5,9 +5,8 @@ from Deployment_setup.config import settings
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from . import task_creator, quality_control, metrics  # <- use relative import
+from . import task_creator, quality_control, metrics , pre_annotation
 
-# Middleware to enforce a maximum request body size
 class MaxBodySizeMiddleware(BaseHTTPMiddleware):
     def __init__(self, app, max_size: int):
         super().__init__(app)
@@ -22,7 +21,7 @@ class MaxBodySizeMiddleware(BaseHTTPMiddleware):
             )
         return await call_next(request)
 
-# Initialize FastAPI app
+
 app = FastAPI(
     title=settings.APP_NAME,
     description="A unified API for the AVA annotation pipeline, combining pre-annotation, "
@@ -30,10 +29,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add middleware (5GB limit)
+
 app.add_middleware(MaxBodySizeMiddleware, max_size=5 * 1024**3)
 
-# Include routers
+# app.include_router(pre_annotation.router)
+
 app.include_router(task_creator.router)
 app.include_router(quality_control.router)
 app.include_router(metrics.router)
